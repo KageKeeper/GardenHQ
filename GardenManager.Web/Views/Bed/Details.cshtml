@@ -1,0 +1,66 @@
+﻿@model GardenManager.Entities.Bed
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bed</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GardenId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GardenId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Width)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Width)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRaisedBed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRaisedBed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsingSFG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsingSFG)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

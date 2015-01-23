@@ -1,0 +1,82 @@
+﻿@model GardenManager.Entities.Seed
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seed</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BedId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BedId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeedsPerPackage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeedsPerPackage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeedOrderLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeedOrderLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HaveOnHand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HaveOnHand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrowThisSeason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrowThisSeason)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
