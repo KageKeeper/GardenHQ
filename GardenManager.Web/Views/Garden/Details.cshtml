@@ -1,30 +1,211 @@
-﻿@model GardenManager.Entities.Garden
+﻿@model GardenManager.Web.ViewModels.GardenViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li class="active">@Html.DisplayFor(model => model.Garden.Name)</li>
+        </ol>
+    </div>
+</div>
+<div id="dashboard-header" class="row">
+    <div class="col-xs-10 col-sm-2">
+        <h3>@Html.DisplayFor(model => model.Garden.Name)</h3>
+    </div>
+    <div class="col-xs-2 col-sm-1 col-sm-offset-1">
+        <h5>@Html.DisplayNameFor(model => model.Garden.Zone.Zone): <b>@Html.DisplayFor(model => model.Garden.Zone.Zone)</b></h5>
+    </div>
+    <div class="col-xs-10 col-sm-2">
+        <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-form-id="edit-garden-form">
+            <i class="fa fa-pencil"></i>
+        </button>
+        <a class="btn btn-danger btn-app-xs btn-circle" href=@Url.Action("Delete", "Garden", new { id = Model.Garden.Id }) title="Destroy current Garden">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div id="update-message" class="has-error invisible"></div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="box ui-draggable ui-droppable">
+            <div class="box-header">
+                <div class="box-name">
+                    <span class="fa fa-table"></span>
+                    <span>Assigned Beds</span>
+                </div>
+            </div>
+            <div class="box-content">
+                @if (Model.Garden.Beds == null || Model.Garden.Beds.Count() == 0)
+                {
+                    <p>
+                        There are no Beds assigned to @Html.DisplayFor(model => model.Garden.Name).<br /><br />
+                        @Html.ActionLink("Assign Bed", "Create", "Bed", new { gardenId = Model.Garden.Id }, new { @class = "btn btn-info", @role = "button" })
+                    </p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-hover table-heading">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Bed.Alias)
+                                </th>
+                                <th>
+                                    Dimensions
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bed in Model.Garden.Beds)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => bed.Alias)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => bed.Width) x @Html.DisplayFor(modelItem => bed.Length)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = bed.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = bed.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = bed.Id })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="box ui-draggable ui-droppable">
+            <div class="box-header">
+                <div class="box-name">
+                    <span class="fa fa-table"></span>
+                    <span>Seasons</span>
+                </div>
+            </div>
+            <div class="box-content">
+                @if (Model.Garden.Seasons == null || Model.Garden.Seasons.Count() == 0)
+                {
+                    <p>
+                        There are no Growing Seasons assigned to @Html.DisplayFor(model => model.Garden.Name).<br /><br />
+                        @Html.ActionLink("Create Season", "Create", "Season", new { gardenId = Model.Garden.Id }, new { @class = "btn btn-info", @role = "button" })
+                    </p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-hover table-heading">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Season.SeasonYear)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var season in Model.Garden.Seasons)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => season.SeasonYear)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = season.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = season.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = season.Id })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="box ui-draggable ui-droppable">
+            <div class="box-header">
+                <div class="box-name">
+                    <span class="fa fa-table"></span>
+                    <span>Harvests</span>
+                </div>
+            </div>
+            <div class="box-content">
+                @if (Model.Garden.Harvests == null || Model.Garden.Harvests.Count() == 0)
+                {
+                    <p>
+                        There are no Harvests associated with @Html.DisplayFor(model => model.Garden.Name).<br /><br />
+                        @Html.ActionLink("Create Harvest", "Create", "Harvest", new { gardenId = Model.Garden.Id }, new { @class = "btn btn-info", @role = "button" })
+                    </p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-hover table-heading">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Harvest.Year)
+                                </th>
+                                <th>
+                                    Yield (lbs)
+                                </th>
+                                <th>
+                                    Yield (count)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var harvest in Model.Garden.Harvests)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => harvest.Year)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => harvest.YieldInWeight)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => harvest.YieldInProduce)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = harvest.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = harvest.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = harvest.Id })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-<div>
-    <h4>Garden</h4>
-    <hr />
-    <dl class="dl-horizontal">
+@*<dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Garden.Name)
         </dt>
         <dt>
-            @Html.DisplayNameFor(model => model.Zone.Zone)
+            @Html.DisplayNameFor(model => model.Garden.Zone.Zone)
         </dt>
 
 
         <dd>
-            @Html.DisplayFor(model => model.Name) <br />
-            @Html.DisplayFor(model => model.Zone.Zone)
+            @Html.DisplayFor(model => model.Garden.Name) <br />
+            @Html.DisplayFor(model => model.Garden.Zone.Zone)
         </dd>
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Garden.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

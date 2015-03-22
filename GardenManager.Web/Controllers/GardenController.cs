@@ -22,8 +22,16 @@ namespace GardenManager.Web.Controllers
         // GET: Garden
         public ActionResult Index()
         {
-            var model = db.Gardens.ToList();
-            return View(model);
+            var gardenViewModel = new GardenViewModel(db.Gardens.ToList());
+            //var model = db.Gardens.ToList();
+
+            foreach (Garden garden in gardenViewModel.Gardens)
+            {
+                var beds = db.Beds.Where(b => b.GardenId == garden.Id).ToList();
+                garden.Beds = beds.AsQueryable();
+            }
+
+            return View(gardenViewModel);
         }
 
         // GET: Garden/Details/5
@@ -33,18 +41,54 @@ namespace GardenManager.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Garden garden = db.Gardens.Find(id);
-            if (garden == null)
+
+            var gardenViewModel = new GardenViewModel(db.Gardens.ToList());
+            gardenViewModel.Garden = db.Gardens.Find(id);
+            if (gardenViewModel.Garden == null)
             {
                 return HttpNotFound();
             }
-            return View(garden);
+
+            // find any Beds assigned to this Garden
+            var beds = db.Beds.Where(b => b.GardenId == gardenViewModel.Garden.Id).ToList();
+            if (beds != null)
+            {
+                gardenViewModel.Garden.Beds = beds.AsQueryable();
+            }
+            else
+            {
+                gardenViewModel.Garden.Beds = null;
+            }
+
+            // find any Seasons assigned to this Garden
+            var seasons = db.Seasons.Where(b => b.GardenId == gardenViewModel.Garden.Id).ToList();
+            if (seasons != null)
+            {
+                gardenViewModel.Garden.Seasons = seasons.AsQueryable();
+            }
+            else
+            {
+                gardenViewModel.Garden.Seasons = null;
+            }
+            
+            // find any Harvests associated with this Garden
+            var harvests = db.Harvests.Where(b => b.GardenId == gardenViewModel.Garden.Id).ToList();
+            if (harvests != null)
+            {
+                gardenViewModel.Garden.Harvests = harvests.AsQueryable();
+            }
+            else
+            {
+                gardenViewModel.Garden.Harvests = null;
+            }
+
+            return View(gardenViewModel);
         }
 
         // GET: Garden/Create
         public ActionResult Create()
         {
-            var viewModel = new GardenViewModel
+            var viewModel = new GardenViewModel(db.Gardens.ToList())
             {
                 Garden = new Garden(),
                 Zones = GetZones()
@@ -68,7 +112,7 @@ namespace GardenManager.Web.Controllers
                 garden.Zone = db.Zones.Where(z => z.Id == viewModel.ZoneId).Single();
                 db.Gardens.Add(garden);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Garden");
             }
 
             return View(viewModel);
@@ -88,14 +132,14 @@ namespace GardenManager.Web.Controllers
                 return HttpNotFound();
             }
 
-            var viewModel = new GardenViewModel
+            var viewModel = new GardenViewModel(db.Gardens.ToList())
             {
                 Garden = garden,
                 ZoneId = garden.Zone.Id,
                 Zones = GetZones()
             };
 
-            return View(viewModel);
+            return PartialView("_EditGardenPartial", viewModel);
         }
 
         // POST: Garden/Edit/5
@@ -103,7 +147,7 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(GardenViewModel viewModel)
+        public string Edit(GardenViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -121,10 +165,11 @@ namespace GardenManager.Web.Controllers
                     ctx.Refresh(RefreshMode.ClientWins, db.Gardens);
                     ctx.SaveChanges();
                 }
-                
-                return RedirectToAction("Index");
+
+                return Url.Action("Details", new { id = viewModel.Garden.Id });
+
             }
-            return View(viewModel);
+            return "";
         }
 
         // GET: Garden/Delete/5

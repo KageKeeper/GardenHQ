@@ -1,4 +1,8 @@
-﻿@model GardenManager.Entities.Bed
+﻿@model GardenManager.Web.ViewModels.BedViewModel
+
+@{
+    Layout = "~/Views/Shared/_RenderBody.cshtml";
+}
 
 @{
     ViewBag.Title = "Create";
@@ -6,10 +10,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Bed</h4>
         <hr />
@@ -17,58 +21,57 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GardenId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GardenId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GardenId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Gardens.FirstOrDefault(x => x.Id == model.GardenId).Name, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Bed.Alias, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Bed.Alias, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bed.Alias, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Bed.Width, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Bed.Width, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bed.Width, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Length, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Bed.Length, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Bed.Length, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bed.Length, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsRaisedBed, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Bed.IsRaisedBed, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsRaisedBed)
-                    @Html.ValidationMessageFor(model => model.IsRaisedBed, "", new { @class = "text-danger" })
+                    <i class="fa fa-square-o"></i>
+                    @Html.EditorFor(model => model.Bed.IsRaisedBed)
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UsingSFG, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Bed.UsingSFG, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.UsingSFG)
-                    @Html.ValidationMessageFor(model => model.UsingSFG, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Bed.UsingSFG)
+                    @Html.ValidationMessageFor(model => model.Bed.UsingSFG, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-info" />
             </div>
         </div>
     </div>

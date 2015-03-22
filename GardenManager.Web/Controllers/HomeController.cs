@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GardenManager.Web.DataContexts;
+using GardenManager.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,12 @@ namespace GardenManager.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private GardenDb db = new GardenDb();
+
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new _LayoutViewModel(db.Gardens.ToList());
+            return View(viewModel);
         }
 
         public ActionResult About()

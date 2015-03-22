@@ -18,6 +18,7 @@ namespace GardenManager.Web.DataContexts
         public DbSet<Seed> Seeds { get; set; }
         public DbSet<Harvest> Harvests { get; set; }
         public DbSet<Bed> Beds { get; set; }
+        public DbSet<Season> Seasons { get; set; }
         
         // Lookup table functionality
         public DbSet<SeedFamily> SeedFamilies { get; set; }

@@ -1,0 +1,26 @@
+﻿@using GardenManager.Web.ViewModels
+@model _NavigationViewModel
+
+<div id="sidebar-left" class="col-xs-2 col-sm-2">
+    <ul class="nav main-menu">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-leaf"></i>
+                <span class="hidden-xs">Gardens</span>
+            </a>
+            <ul class="dropdown-menu">
+                @foreach (var garden in Model.Gardens)
+                {
+                    <li>
+                        @Html.ActionLink((string)garden.Name, "Details", "Garden", new { id = garden.Id }, new { @class = "ajax-link" })
+                    </li>
+                }
+                <li class="divider"></li>
+                <li>@Html.ActionLink("Add Garden", "Create", "Garden", null, new { @class = "ajax-link" })</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Seeds", "Index", "Seed")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</div>

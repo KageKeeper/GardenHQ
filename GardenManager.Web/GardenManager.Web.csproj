@@ -198,6 +198,14 @@
     <Compile Include="DataContexts\GardenMigrations\201412132223424_AddingZoneIdToGardenEntity.Designer.cs">
       <DependentUpon>201412132223424_AddingZoneIdToGardenEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\GardenMigrations\201503190525279_AddedSeasonsToDbContext.cs" />
+    <Compile Include="DataContexts\GardenMigrations\201503190525279_AddedSeasonsToDbContext.Designer.cs">
+      <DependentUpon>201503190525279_AddedSeasonsToDbContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.cs" />
+    <Compile Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.Designer.cs">
+      <DependentUpon>201503210329160_MakeGardenNameRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\GardenMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.cs" />
@@ -213,9 +221,15 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="CustomViewEngines\GardenHQViewEngine.cs" />
+    <Compile Include="ViewModels\BedViewModel.cs" />
     <Compile Include="ViewModels\GardenViewModel.cs" />
+    <Compile Include="ViewModels\_NavigationViewModel.cs" />
+    <Compile Include="ViewModels\_LayoutViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\gardenHQ_pattern_b10.png" />
@@ -225,11 +239,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\GardenHQ.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\GardenHQ.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -238,6 +259,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -291,14 +313,14 @@
     <Content Include="Views\Bed\Details.cshtml" />
     <Content Include="Views\Bed\Edit.cshtml" />
     <Content Include="Views\Bed\Index.cshtml" />
+    <Content Include="Views\Shared\_MainNavigationPartial.cshtml" />
+    <Content Include="Views\Garden\Partials\_EditGardenPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
@@ -323,6 +345,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\GardenMigrations\201412132223424_AddingZoneIdToGardenEntity.resx">
       <DependentUpon>201412132223424_AddingZoneIdToGardenEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\GardenMigrations\201503190525279_AddedSeasonsToDbContext.resx">
+      <DependentUpon>201503190525279_AddedSeasonsToDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.resx">
+      <DependentUpon>201503210329160_MakeGardenNameRequired.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.resx">
       <DependentUpon>201412120716098_InitialCreate.cs</DependentUpon>

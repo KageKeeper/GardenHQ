@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using GardenManager.Entities;
 using GardenManager.Web.DataContexts;
+using GardenManager.Web.ViewModels;
 
 namespace GardenManager.Web.Controllers
 {
@@ -17,19 +18,19 @@ namespace GardenManager.Web.Controllers
         private GardenDb db = new GardenDb();
 
         // GET: Bed
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Beds.ToListAsync());
+            return View(db.Beds.ToList());
         }
 
         // GET: Bed/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bed bed = await db.Beds.FindAsync(id);
+            Bed bed = db.Beds.Find(id);
             if (bed == null)
             {
                 return HttpNotFound();
@@ -38,9 +39,15 @@ namespace GardenManager.Web.Controllers
         }
 
         // GET: Bed/Create/5
-        public ActionResult Create(int? gardenId)
+        public ActionResult Create(int gardenId)
         {
-            return View();
+            var viewModel = new BedViewModel
+            {
+                Bed = new Bed(),
+                Gardens = GetGardens(),
+                GardenId = gardenId
+            };
+            return View(viewModel);
         }
 
         // POST: Bed/Create
@@ -48,26 +55,33 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,GardenId,Alias,Width,Length,IsRaisedBed,UsingSFG")] Bed bed)
+        public ActionResult Create(BedViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                Bed bed = new Bed
+                {
+                    Alias = viewModel.Bed.Alias,
+                    Width = viewModel.Bed.Width,
+                    Length = viewModel.Bed.Length,
+                    GardenId = viewModel.GardenId
+                };
                 db.Beds.Add(bed);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(bed);
+            return View(viewModel);
         }
 
         // GET: Bed/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bed bed = await db.Beds.FindAsync(id);
+            Bed bed = db.Beds.Find(id);
             if (bed == null)
             {
                 return HttpNotFound();
@@ -80,25 +94,25 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,GardenId,Alias,Width,Length,IsRaisedBed,UsingSFG")] Bed bed)
+        public ActionResult Edit([Bind(Include = "Id,GardenId,Alias,Width,Length,IsRaisedBed,UsingSFG")] Bed bed)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(bed).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(bed);
         }
 
         // GET: Bed/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bed bed = await db.Beds.FindAsync(id);
+            Bed bed = db.Beds.Find(id);
             if (bed == null)
             {
                 return HttpNotFound();
@@ -109,11 +123,11 @@ namespace GardenManager.Web.Controllers
         // POST: Bed/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Bed bed = await db.Beds.FindAsync(id);
+            Bed bed = db.Beds.Find(id);
             db.Beds.Remove(bed);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -124,6 +138,14 @@ namespace GardenManager.Web.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Returns an IEnumerable List of Garden
+        /// </summary>
+        private IEnumerable<Garden> GetGardens()
+        {
+            return db.Gardens.ToList();
         }
     }
 }
