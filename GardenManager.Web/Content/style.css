@@ -26,26 +26,28 @@ h1, .h1, h2, .h2, h3, .h3 {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 50px;
     z-index: 99920;
 }
 
-.notification-message.active {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-}
+    .notification-message.active {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+    }
 
-.notification-message .text {
-    display: inline-block;
-    margin-left: .5rem;
-    width: 80%;
-}
+    .notification-message .text {
+        display: inline-block;
+        margin-left: 10.5rem;
+        width: 80%;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
 
-.notification-message .text p {
-    margin: 0;
-}
+        .notification-message .text p {
+            margin: 0;
+            font-size: 2.5rem;
+        }
 
 .notification-message-success {
     background: rgba(157, 206, 10, .9);
@@ -67,8 +69,8 @@ h1, .h1, h2, .h2, h3, .h3 {
     top: 1rem;
 }
 
-.warning {
-    font-size: 2rem;
+.notification-message .warning {
+    font-size: 4rem;
     color: #fff;
     line-height: 2.4rem;
 }
@@ -78,23 +80,23 @@ h1, .h1, h2, .h2, h3, .h3 {
     background: #525252 url(images/gardenHQ_pattern_b10.png) 0 0 repeat;
 }
 
-#logo a {
-    color: #fff;
-    font-family: 'Righteous', cursive;
-    display: block;
-    font-size: 20px;
-    line-height: 50px;
-    /*background: url(../img/logo.png) right 42px no-repeat;*/
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-}
+    #logo a {
+        color: #fff;
+        font-family: 'Righteous', cursive;
+        display: block;
+        font-size: 20px;
+        line-height: 50px;
+        /*background: url(../img/logo.png) right 42px no-repeat;*/
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -o-transition: 0.5s;
+        transition: 0.5s;
+    }
 
-#logo a:hover {
-    background-position: right 25px;
-    text-decoration: none;
-}
+        #logo a:hover {
+            background-position: right 25px;
+            text-decoration: none;
+        }
 
 .navbar {
     margin: 0;

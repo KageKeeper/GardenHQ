@@ -52,8 +52,15 @@
     <!-- start Container -->
     <div id="main" class="container-fluid" style="min-height: 906px;">
         <div class="row">
-            <div class="notification-message notification-message-success"></div>
-            @Html.Partial("_MainNavigationPartial", new _NavigationViewModel(Model.Gardens))
+            <div class="notification-message notification-message-success">
+                <div class="text">
+                    <h4 class="warning">All is well</h4>
+                    <p>Your changes were saved!</p>
+                </div>
+            </div>
+            <div id="sidebar-left" class="col-xs-2 col-sm-2">
+                @Html.Partial("_MainNavigationPartial", new _NavigationViewModel(Model.Gardens))
+            </div>
             <div id="content">
                 <div id="ajax-content">
                     @RenderBody()
