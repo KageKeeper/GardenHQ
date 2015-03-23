@@ -14,7 +14,7 @@ I am an avid gardener, and as such I collect and compile an enormous amount of d
 - Etc....
 
 I am using ASP.NET MVC5 to acheive a pleasant and intuitive Gardening application where all this data can be stored, and easily retrieved 
-and displayed. I intend to use the data stored over time to produce informative graphs and other helpful informaation for Gardnerers
+and displayed. I intend to use the data stored over time to produce informative graphs and other helpful information for Gardnerers
 everywhere!
 
 
