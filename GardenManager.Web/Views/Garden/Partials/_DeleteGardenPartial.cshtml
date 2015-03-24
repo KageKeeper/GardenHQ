@@ -1,0 +1,40 @@
+﻿@model GardenManager.Entities.Garden
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Html.Partial("_ModalHeaderPartial")
+
+@using (Ajax.BeginForm("Delete", "Garden", null,
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "ajax-content",
+            OnSuccess = "OnModalSuccess"
+        }, new { @id = "delete-garden-form" }))
+{
+    <div class="modal-body">
+        <div class="container-fluid">
+            @Html.HiddenFor(model => model.Id)
+            <h4>Are you sure you want to destroy this Garden?</h4> <br />
+            <div class="form-group">
+                @Html.Label("Garden Name", new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DisplayFor(model => model.Name)
+                </div>
+            </div> <br /> <br />
+            <p><i class="fa fa-info-circle"></i> Destroying this Garden will NOT destroy any associated Beds, Seasons, Harvests, or any other data Object.</p>
+            @Html.AntiForgeryToken()
+        </div>
+    </div>
+    @Html.Partial("_ModalFooterPartial")
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.validator.unobtrusive.parse("#delete-garden-form");
+
+    });
+</script>

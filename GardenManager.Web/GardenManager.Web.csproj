@@ -322,6 +322,7 @@
     <Content Include="Views\Garden\Partials\_CreateGardenPartial.cshtml" />
     <Content Include="Views\Shared\_ModalHeaderPartial.cshtml" />
     <Content Include="Views\Shared\_ModalFooterPartial.cshtml" />
+    <Content Include="Views\Garden\Partials\_DeleteGardenPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

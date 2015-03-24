@@ -19,6 +19,10 @@ h1, .h1, h2, .h2, h3, .h3 {
     margin: 0;
 }
 
+.modal-body p {
+    font-size: 1.15rem;
+}
+
 .notification-message {
     display: none;
     background: rgba(184, 184, 184, .95);
@@ -1031,7 +1035,7 @@ td.beauty-hover {
 }
 
     .btn-app-xs i {
-        font-size: 23px;
+        font-size: 18px;
         line-height: 27px;
         display: block;
     }

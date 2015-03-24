@@ -184,18 +184,18 @@ namespace GardenManager.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(garden);
+            return PartialView("_DeleteGardenPartial", garden);
         }
 
         // POST: Garden/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public IHtmlString DeleteConfirmed(int id)
         {
             Garden garden = db.Gardens.Find(id);
             db.Gardens.Remove(garden);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return new MvcHtmlString(Url.Action("Index", "Home"));
         }
 
         protected override void Dispose(bool disposing)

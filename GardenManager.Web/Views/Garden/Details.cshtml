@@ -20,13 +20,13 @@
         <h5>@Html.DisplayNameFor(model => model.Garden.Zone.Zone): <b>@Html.DisplayFor(model => model.Garden.Zone.Zone)</b></h5>
     </div>
     <div class="col-xs-10 col-sm-2">
-        <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-title="Edit Garden" data-modal-submit-text="Save">
+        <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-title="Edit current Garden" data-modal-submit-text="Save">
                 <i class="fa fa-pencil"></i>
             </span>
         </button>
-        <a class="btn btn-danger btn-app-xs btn-circle" href=@Url.Action("Delete", "Garden", new { id = Model.Garden.Id }) title="Destroy current Garden">
+        <button class="btn btn-danger btn-app-xs btn-circle show-modal" href="#modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Delete", "Garden")" data-modal-title="Destroy this Garden?" title="Destroy current Garden" data-modal-submit-text="Destroy">
             <i class="fa fa-times"></i>
-        </a>
+        </button>
     </div>
 </div>
 <div class="row">

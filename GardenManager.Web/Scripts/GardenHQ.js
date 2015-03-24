@@ -18,6 +18,11 @@ $(document).on('click', '.show-modal', function (e) {
     $.get(url, function (data) {
         $('.modal-content').html(data);
         $('#modal-parent').modal('show');
+        if (modalSubmitText == "Destroy") // Add additional coloring to indicate a danger operation
+        {
+            $(".modal-header").addClass("bg-danger");
+            $("#submit-modal-form").removeClass("btn-info").addClass("btn-danger");
+        }
         $('#modal-header-title').html(modalHeaderTitle);
         $('#submit-modal-form').val(modalSubmitText);
     });
@@ -223,7 +228,7 @@ function LoadAjaxContent(url) {
 
 function ShowCompleteMessage() {
     $('.notification-message-success').slideToggle(400).doTimeout("notification-message-success-timeout", 2000, function () {
-        slideToggle(400);
+        $('.notification-message-success').slideToggle(400);
     });
 }
 
