@@ -20,7 +20,7 @@
         <h5>@Html.DisplayNameFor(model => model.Garden.Zone.Zone): <b>@Html.DisplayFor(model => model.Garden.Zone.Zone)</b></h5>
     </div>
     <div class="col-xs-10 col-sm-2">
-        <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-form-id="edit-garden-form">
+        <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-title="Edit Garden" data-modal-submit-text="Save">
                 <i class="fa fa-pencil"></i>
             </span>
         </button>
@@ -191,22 +191,3 @@
         </div>
     </div>
 </div>
-
-@*<dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Garden.Name)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.Garden.Zone.Zone)
-        </dt>
-
-
-        <dd>
-            @Html.DisplayFor(model => model.Garden.Name) <br />
-            @Html.DisplayFor(model => model.Garden.Zone.Zone)
-        </dd>
-    </dl>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Garden.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>*@

@@ -6,9 +6,20 @@ $(document).on('click', '.show-modal', function (e) {
 
     var url = $(this).attr('data-url'); // expected format: Action/ControllerName
     var id = $(this).attr('data-id'); // the id of the object
-    $.get(url + '/' + id, function (data) {
+    var modalHeaderTitle = $(this).attr('data-modal-title');
+    var modalSubmitText = $(this).attr('data-modal-submit-text');
+    
+    // Construct url
+    if (id)
+    {
+        url += '/' + id;
+    }
+
+    $.get(url, function (data) {
         $('.modal-content').html(data);
         $('#modal-parent').modal('show');
+        $('#modal-header-title').html(modalHeaderTitle);
+        $('#submit-modal-form').val(modalSubmitText);
     });
 });
 $(document).on('click', '#submit-modal-form', function (e) {
@@ -99,7 +110,11 @@ $(document).ready(function () {
     }
     LoadAjaxContent(ajax_url);
 
-    
+    $('#notification-message-success-close').on('click', function (e) {
+        e.preventDefault();
+        $('.notification-message-success').doTimeout("notification-message-success-timeout");
+        $('.notification-message-success').hide();
+    });
 
     //var height = window.innerHeight - 49;
     //$('#main').css('min-height', height)
@@ -207,7 +222,9 @@ function LoadAjaxContent(url) {
 }
 
 function ShowCompleteMessage() {
-    $('.notification-message-success').slideToggle(400).delay(3000).slideToggle(400);
+    $('.notification-message-success').slideToggle(400).doTimeout("notification-message-success-timeout", 2000, function () {
+        slideToggle(400);
+    });
 }
 
 function UpdateMainMenu() {

@@ -93,7 +93,7 @@ namespace GardenManager.Web.Controllers
                 Garden = new Garden(),
                 Zones = GetZones()
             };
-            return View(viewModel);
+            return PartialView("_CreateGardenPartial", viewModel);
         }
 
         // POST: Garden/Create
@@ -101,7 +101,7 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(GardenViewModel viewModel)
+        public IHtmlString Create(GardenViewModel viewModel)
         {
             Garden Model = viewModel.Garden;
 
@@ -112,10 +112,10 @@ namespace GardenManager.Web.Controllers
                 garden.Zone = db.Zones.Where(z => z.Id == viewModel.ZoneId).Single();
                 db.Gardens.Add(garden);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Garden");
+                return new MvcHtmlString(Url.Action("Details", new { id = garden.Id }));
             }
 
-            return View(viewModel);
+            return new MvcHtmlString("");
         }
 
         // GET: Garden/Edit/5
@@ -147,7 +147,7 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public string Edit(GardenViewModel viewModel)
+        public IHtmlString Edit(GardenViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -166,10 +166,10 @@ namespace GardenManager.Web.Controllers
                     ctx.SaveChanges();
                 }
 
-                return Url.Action("Details", new { id = viewModel.Garden.Id });
+                return new MvcHtmlString(Url.Action("Details", new { id = viewModel.Garden.Id }));
 
             }
-            return "";
+            return new MvcHtmlString("");
         }
 
         // GET: Garden/Delete/5

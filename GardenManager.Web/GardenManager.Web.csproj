@@ -14,7 +14,7 @@
     <RootNamespace>GardenManager.Web</RootNamespace>
     <AssemblyName>GardenManager.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -255,10 +255,12 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.ba-dotimeout.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.ba-dotimeout.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
@@ -317,6 +319,9 @@
     <Content Include="Views\Shared\_MainNavigationPartial.cshtml" />
     <Content Include="Views\Garden\Partials\_EditGardenPartial.cshtml" />
     <Content Include="Views\Shared\_ModalPartial.cshtml" />
+    <Content Include="Views\Garden\Partials\_CreateGardenPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalHeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalFooterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

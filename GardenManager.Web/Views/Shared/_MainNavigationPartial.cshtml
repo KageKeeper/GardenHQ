@@ -15,7 +15,7 @@
                 </li>
             }
             <li class="divider"></li>
-            <li>@Html.ActionLink("Add Garden", "Create", "Garden", null, new { @class = "ajax-link" })</li>
+            <li>@Html.ActionLink("Add Garden", "Create", "Garden", null, new { @class = "show-modal", title = "Build New Garden", data_url = "/Garden/Create", data_modal_title = "Build Garden", data_modal_submit_text = "Build!" })</li>
         </ul>
     </li>
     <li>@Html.ActionLink("Seeds", "Index", "Seed")</li>

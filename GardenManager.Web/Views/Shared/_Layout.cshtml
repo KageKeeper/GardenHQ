@@ -57,6 +57,7 @@
                     <h4 class="warning">All is well</h4>
                     <p>Your changes were saved!</p>
                 </div>
+                <button type="button" class="close" id="notification-message-success-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div id="sidebar-left" class="col-xs-2 col-sm-2">
                 @Html.Partial("_MainNavigationPartial", new _NavigationViewModel(Model.Gardens))
@@ -76,6 +77,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerydotimeout")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

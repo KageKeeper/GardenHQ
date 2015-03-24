@@ -1,26 +1,24 @@
 ﻿@model GardenManager.Web.ViewModels.GardenViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
-
 
 @Html.Partial("_ModalHeaderPartial");
 
-@using (Ajax.BeginForm("Edit", "Garden", null,
+@using (Ajax.BeginForm("Create", "Garden", null,
         new AjaxOptions
         {
             HttpMethod = "POST",
             UpdateTargetId = "ajax-content",
             OnSuccess = "OnModalSuccess"
-        }, new { @id = "edit-garden-form" }))
+        }, new { @id = "create-garden-form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Garden.Id)
 
     <div class="modal-body">
         <div class="container-fluid">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Garden.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -29,11 +27,10 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Garden.Zone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
+                <div class="col-md-10 col-md-offset-2">
                     @Html.DropDownListFor(model => model.ZoneId,
-                    new SelectList(Model.Zones, "Id", "Zone", Model.ZoneId),
-                    "Select Zone", new { @class = "form-control" })
+                new SelectList(Model.Zones, "Id", "Zone", Model.ZoneId),
+                "Select Zone", new { @class = "form-control" })
                 </div>
             </div>
         </div>
@@ -44,7 +41,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-    $.validator.unobtrusive.parse("#edit-garden-form");
+    $.validator.unobtrusive.parse("#create-garden-form");
 
 });
 </script>
+
