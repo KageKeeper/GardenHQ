@@ -8,11 +8,22 @@ using GardenManager.Entities;
 
 namespace GardenManager.Web.ViewModels
 {
-    public class BedViewModel
+    public class BedViewModel : _LayoutViewModel
     {
-        [Display(Name = "Garden Assigned To")]
+        public BedViewModel()
+        {
+        }
+        public BedViewModel(IEnumerable<Garden> gardens) : base (gardens)
+        {
+        }
+
+        [Display(Name = "Assign To")]
         public int GardenId { get; set; }
-        public IEnumerable<Garden> Gardens { get; set; }
+
+        public int BedId { get; set; }
+
+        [Display(Name = "Unassigned Beds")]
+        public IEnumerable<Bed> UnassignedBeds { get; set; }
 
         public Bed Bed { get; set; }
     }

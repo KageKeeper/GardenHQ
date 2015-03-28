@@ -1307,9 +1307,9 @@ td.beauty-hover {
 }
 
     .radio label, .checkbox label, .radio-inline label, .checkbox-inline label {
-        font-weight: normal;
+        font-weight: bold;
         cursor: pointer;
-        padding-left: 8px;
+        padding-left: 35px;
         -webkit-transition: 1s;
         -moz-transition: 1s;
         -o-transition: 1s;
@@ -1349,6 +1349,15 @@ td.beauty-hover {
     .radio input[type=radio]:checked + i:before, .radio-inline input[type=radio]:checked + i:before {
         content: "\f192";
     }
+
+    .radio input[type=radio]:disabled + i:before, .radio-inline input[type=radio]:disabled + i:before {
+        content: "\f057";
+        cursor: not-allowed;
+    }
+
+input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"].disabled, input[type="checkbox"].disabled, fieldset[disabled] input[type="radio"], fieldset[disabled] input[type="checkbox"] {
+    cursor: not-allowed;
+}
 
 .toggle-switch {
     position: relative;

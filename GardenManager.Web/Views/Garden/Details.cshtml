@@ -22,21 +22,22 @@
     <div class="col-xs-10 col-sm-2">
         <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-title="Edit current Garden" data-modal-submit-text="Save">
                 <i class="fa fa-pencil"></i>
-            </span>
         </button>
-        <button class="btn btn-danger btn-app-xs btn-circle show-modal" href="#modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Delete", "Garden")" data-modal-title="Destroy this Garden?" title="Destroy current Garden" data-modal-submit-text="Destroy">
+        <button class="btn btn-danger btn-app-xs btn-circle show-modal" href="#modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Delete", "Garden")" data-modal-title="Destroy this Garden?" title="Destroy current Garden" 
+                data-modal-submit-text="Destroy">
             <i class="fa fa-times"></i>
         </button>
     </div>
 </div>
 <div class="row">
-    <div id="update-message" class="has-error invisible"></div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="col-xs-12 col-sm-6">
         <div class="box ui-draggable ui-droppable">
             <div class="box-header">
                 <div class="box-name">
                     <span class="fa fa-table"></span>
                     <span>Assigned Beds</span>
+                    <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("CreateOrAssign", "Bed")" data-modal-title="Build or Assign Bed?" title="Build or Assign Bed" 
+                            data-modal-submit-text="Next"><i class="fa fa-plus"></i></button> 
                 </div>
             </div>
             <div class="box-content">
@@ -44,7 +45,6 @@
                 {
                     <p>
                         There are no Beds assigned to @Html.DisplayFor(model => model.Garden.Name).<br /><br />
-                        @Html.ActionLink("Assign Bed", "Create", "Bed", new { gardenId = Model.Garden.Id }, new { @class = "btn btn-info", @role = "button" })
                     </p>
                 }
                 else
@@ -84,12 +84,16 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="col-xs-12 col-sm-6">
         <div class="box ui-draggable ui-droppable">
             <div class="box-header">
                 <div class="box-name">
                     <span class="fa fa-table"></span>
                     <span>Seasons</span>
+                    <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Create", "Season")" data-modal-title="Start a Season" title="Start a Season"
+                            data-modal-submit-text="Start">
+                        <i class="fa fa-plus"></i>
+                    </button> 
                 </div>
             </div>
             <div class="box-content">
@@ -97,7 +101,6 @@
                 {
                     <p>
                         There are no Growing Seasons assigned to @Html.DisplayFor(model => model.Garden.Name).<br /><br />
-                        @Html.ActionLink("Create Season", "Create", "Season", new { gardenId = Model.Garden.Id }, new { @class = "btn btn-info", @role = "button" })
                     </p>
                 }
                 else
@@ -131,12 +134,16 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="col-xs-12 col-sm-6">
         <div class="box ui-draggable ui-droppable">
             <div class="box-header">
                 <div class="box-name">
                     <span class="fa fa-table"></span>
                     <span>Harvests</span>
+                    <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Create", "Harvest")" data-modal-title="Start a Harvest" title="Start a Harvest"
+                            data-modal-submit-text="Start">
+                        <i class="fa fa-plus"></i>
+                    </button> 
                 </div>
             </div>
             <div class="box-content">
@@ -144,7 +151,6 @@
                 {
                     <p>
                         There are no Harvests associated with @Html.DisplayFor(model => model.Garden.Name).<br /><br />
-                        @Html.ActionLink("Create Harvest", "Create", "Harvest", new { gardenId = Model.Garden.Id }, new { @class = "btn btn-info", @role = "button" })
                     </p>
                 }
                 else

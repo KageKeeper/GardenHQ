@@ -1,0 +1,85 @@
+﻿@model GardenManager.Web.ViewModels.BedViewModel
+
+@Html.Partial("_ModalHeaderPartial")
+
+@*
+    If UnassignedBeds is null or 0, disable the radio assign-existing-bed,
+    and set a mouseover tooltip to instruct the user why it is disabled.
+*@
+
+@{
+    var hasUnassignedBeds = (Model.UnassignedBeds.Count() > 0).ToString().ToLower();
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        // If there aren't any unassigned Beds, disable that option and present a tooltip
+        if (!@(hasUnassignedBeds)) {
+            // label will present the 'not allowed' cursor, and present a tooltip.
+            $('.assign').addClass('disabled');
+        $('.tooltip-wrapper').attr('data-toggle', 'tooltip');
+        $('.tooltip-wrapper').attr('data-placement', 'left');
+        $('.tooltip-wrapper').prop('title', 'There are not any unassigned Beds currently available. Please Build a new Bed for this Garden');
+
+        // disable the input
+        $('#assign-existing-bed').attr('disabled', 'disabled');
+
+        // initialize and opt-in to tooltip
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    }
+
+        $('.submit-modal-form').val("Build"); // this is the button on _ModalFooterPartial
+    $('.submit-modal-form').attr('id', 'sumbit-bed-modal-form');
+
+    // Handle the click of the nmodalfooter submit button
+    // We are just manually triggering the hidden button
+    // to submit the form.
+    $('.submit-modal-form').click(function () {
+        $('#submit-modal-form').trigger('click'); // this is the hidden button on the form. Simulating the click should submit the form
+    });
+
+    // Handle the click of the radio buttons
+    $(".modal-body input[name='BuildOrAssignBed']").click( function () {
+        var gardenID = @(Model.GardenId);
+        if ($('input:radio[name=BuildOrAssignBed]:checked').val() == "Assign")
+        {
+            $('#main-form-div').load("Bed/GetAssignPartial?id=" + gardenID);
+            $('.submit-modal-form').val("Assign");
+        }
+        else
+        {
+            $('#main-form-div').load("Bed/GetCreatePartial?id=" + gardenID);
+            $('.submit-modal-form').val("Build");
+        }
+
+    });
+    });
+</script>
+
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="form-group">
+            <div class="radio build">
+                <label>
+                    <input type="radio" name="BuildOrAssignBed" id="build-new-bed" value="Build" checked>
+                    Build a new Bed and automatically Assign it to this Garden.
+                    <i class="fa fa-circle-o"></i>
+                </label>
+            </div>
+            <div class="tooltip-wrapper">
+                <div class="radio assign">
+                    <label>
+                        <input type="radio" name="BuildOrAssignBed" id="assign-existing-bed" value="Assign">
+                        Assign an existing Bed to this Garden.
+                        <i class="fa fa-circle-o assign-radio-circle"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="main-form-div">
+            @Html.Partial("_CreateBedPartial", Model)
+        </div>
+    </div>
+</div>
+@Html.Partial("_ModalFooterPartial")

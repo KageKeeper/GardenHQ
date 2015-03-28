@@ -207,6 +207,14 @@
     <Compile Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.Designer.cs">
       <DependentUpon>201503210329160_MakeGardenNameRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\GardenMigrations\201503260616012_AddedAssignedToGardenColumnToBedEntity.cs" />
+    <Compile Include="DataContexts\GardenMigrations\201503260616012_AddedAssignedToGardenColumnToBedEntity.Designer.cs">
+      <DependentUpon>201503260616012_AddedAssignedToGardenColumnToBedEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.cs" />
+    <Compile Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.Designer.cs">
+      <DependentUpon>201503271538437_AddedRequiredAnnotationsToBedProps.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\GardenMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.cs" />
@@ -323,6 +331,9 @@
     <Content Include="Views\Shared\_ModalHeaderPartial.cshtml" />
     <Content Include="Views\Shared\_ModalFooterPartial.cshtml" />
     <Content Include="Views\Garden\Partials\_DeleteGardenPartial.cshtml" />
+    <Content Include="Views\Bed\Partials\_CreateOrAssignBedPartial.cshtml" />
+    <Content Include="Views\Bed\Partials\_CreateBedPartial.cshtml" />
+    <Content Include="Views\Bed\Partials\_AssignBedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -359,6 +370,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.resx">
       <DependentUpon>201503210329160_MakeGardenNameRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\GardenMigrations\201503260616012_AddedAssignedToGardenColumnToBedEntity.resx">
+      <DependentUpon>201503260616012_AddedAssignedToGardenColumnToBedEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.resx">
+      <DependentUpon>201503271538437_AddedRequiredAnnotationsToBedProps.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.resx">
       <DependentUpon>201412120716098_InitialCreate.cs</DependentUpon>

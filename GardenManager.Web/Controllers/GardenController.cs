@@ -23,7 +23,6 @@ namespace GardenManager.Web.Controllers
         public ActionResult Index()
         {
             var gardenViewModel = new GardenViewModel(db.Gardens.ToList());
-            //var model = db.Gardens.ToList();
 
             foreach (Garden garden in gardenViewModel.Gardens)
             {

@@ -23,6 +23,30 @@ namespace GardenManager.Web.Controllers
             return View(db.Beds.ToList());
         }
 
+        public PartialViewResult GetAssignPartial(int id)
+        {
+            var viewModel = new BedViewModel(GetGardens())
+            {
+                Bed = new Bed(),
+                UnassignedBeds = db.Beds.Where(b => b.AssignedToGarden == false).ToList(),
+                GardenId = id
+            };
+
+            return PartialView("_AssignBedPartial", viewModel);
+        }
+
+        public PartialViewResult GetCreatePartial(int id)
+        {
+            var viewModel = new BedViewModel(GetGardens())
+            {
+                Bed = new Bed(),
+                UnassignedBeds = db.Beds.Where(b => b.AssignedToGarden == false).ToList(),
+                GardenId = id
+            };
+
+            return PartialView("_CreateBedPartial", viewModel);
+        }
+
         // GET: Bed/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,13 +62,25 @@ namespace GardenManager.Web.Controllers
             return View(bed);
         }
 
+        // GET: Bed/CreateOrAssign
+        public ActionResult CreateOrAssign(int id)
+        {
+            var viewModel = new BedViewModel (GetGardens())
+            {
+                Bed = new Bed(),
+                UnassignedBeds = db.Beds.Where(b => b.AssignedToGarden == false).ToList(),
+                GardenId = id
+            };
+
+            return PartialView("_CreateOrAssignBedPartial", viewModel);
+        }
+
         // GET: Bed/Create/5
         public ActionResult Create(int gardenId)
         {
-            var viewModel = new BedViewModel
+            var viewModel = new BedViewModel (GetGardens())
             {
                 Bed = new Bed(),
-                Gardens = GetGardens(),
                 GardenId = gardenId
             };
             return View(viewModel);
@@ -55,7 +91,7 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BedViewModel viewModel)
+        public IHtmlString Create(BedViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -64,16 +100,36 @@ namespace GardenManager.Web.Controllers
                     Alias = viewModel.Bed.Alias,
                     Width = viewModel.Bed.Width,
                     Length = viewModel.Bed.Length,
-                    GardenId = viewModel.GardenId
+                    GardenId = viewModel.GardenId,
+                    AssignedToGarden = true
                 };
                 db.Beds.Add(bed);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
 
-            return View(viewModel);
+            return new MvcHtmlString("");
         }
 
+        // POST: Bed/Assign
+        // This Action will assign the selected Bed to the selected Garden.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IHtmlString Assign(BedViewModel viewModal)
+        {
+            if (ModelState.IsValid)
+            {
+                Bed bed = db.Beds.Where(b => b.Id == viewModal.BedId).First();
+                bed.GardenId = viewModal.GardenId;
+                bed.AssignedToGarden = true;
+
+                db.Entry(bed).State = EntityState.Modified;
+                db.SaveChanges();
+                return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModal.GardenId }));
+            }
+
+            return new MvcHtmlString("");
+        }
         // GET: Bed/Edit/5
         public ActionResult Edit(int? id)
         {
