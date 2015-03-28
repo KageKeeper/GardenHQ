@@ -11,6 +11,7 @@
         }, new { @id = "create-bed-form" }))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-horizontal">
         @Html.HiddenFor(model => model.GardenId)
@@ -69,3 +70,10 @@
     <input type="submit" value="Save" id="submit-modal-form" class="btn btn-info" style="display: none;" />
 }
 
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $.validator.unobtrusive.parse("#edit-garden-form");
+
+});
+</script>

@@ -10,6 +10,9 @@ using System.Web.Mvc;
 using GardenManager.Entities;
 using GardenManager.Web.DataContexts;
 using GardenManager.Web.ViewModels;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace GardenManager.Web.Controllers
 {
@@ -115,17 +118,17 @@ namespace GardenManager.Web.Controllers
         // This Action will assign the selected Bed to the selected Garden.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IHtmlString Assign(BedViewModel viewModal)
+        public IHtmlString Assign(BedViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                Bed bed = db.Beds.Where(b => b.Id == viewModal.BedId).First();
-                bed.GardenId = viewModal.GardenId;
+                Bed bed = db.Beds.Where(b => b.Id == viewModel.BedId).First();
+                bed.GardenId = viewModel.GardenId;
                 bed.AssignedToGarden = true;
 
                 db.Entry(bed).State = EntityState.Modified;
                 db.SaveChanges();
-                return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModal.GardenId }));
+                return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
 
             return new MvcHtmlString("");
@@ -137,12 +140,17 @@ namespace GardenManager.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bed bed = db.Beds.Find(id);
-            if (bed == null)
+
+            var viewModel = new BedViewModel(GetGardens());
+            viewModel.Bed = db.Beds.Find(id);
+            if (viewModel.Bed == null)
             {
                 return HttpNotFound();
             }
-            return View(bed);
+
+            viewModel.GardenId = viewModel.Bed.GardenId;
+
+            return PartialView("_EditBedPartial", viewModel);
         }
 
         // POST: Bed/Edit/5
@@ -150,15 +158,29 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,GardenId,Alias,Width,Length,IsRaisedBed,UsingSFG")] Bed bed)
+        public IHtmlString Edit(BedViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                Bed bed = db.Beds.Find(viewModel.Bed.Id);
+                bed.Alias = viewModel.Bed.Alias;
+                bed.Width = viewModel.Bed.Width;
+                bed.Length = viewModel.Bed.Length;
+                db.Beds.Attach(bed);
                 db.Entry(bed).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (OptimisticConcurrencyException)
+                {
+                    var ctx = ((IObjectContextAdapter)db).ObjectContext;
+                    ctx.Refresh(RefreshMode.ClientWins, db.Beds);
+                    ctx.SaveChanges();
+                }
+                return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
-            return View(bed);
+            return new MvcHtmlString("");
         }
 
         // GET: Bed/Delete/5

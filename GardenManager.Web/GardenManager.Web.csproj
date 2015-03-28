@@ -334,6 +334,7 @@
     <Content Include="Views\Bed\Partials\_CreateOrAssignBedPartial.cshtml" />
     <Content Include="Views\Bed\Partials\_CreateBedPartial.cshtml" />
     <Content Include="Views\Bed\Partials\_AssignBedPartial.cshtml" />
+    <Content Include="Views\Bed\Partials\_EditBedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

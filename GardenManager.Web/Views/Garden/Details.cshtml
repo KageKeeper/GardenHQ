@@ -21,9 +21,9 @@
     </div>
     <div class="col-xs-10 col-sm-2">
         <button class="btn btn-info btn-app-xs btn-circle show-modal" href="#modal-parent" title="Edit current Garden" data-id="@Model.Garden.Id" data-url="@Url.Action("Edit", "Garden")" data-modal-title="Edit current Garden" data-modal-submit-text="Save">
-                <i class="fa fa-pencil"></i>
+            <i class="fa fa-pencil"></i>
         </button>
-        <button class="btn btn-danger btn-app-xs btn-circle show-modal" href="#modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Delete", "Garden")" data-modal-title="Destroy this Garden?" title="Destroy current Garden" 
+        <button class="btn btn-danger btn-app-xs btn-circle show-modal" href="#modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Delete", "Garden")" data-modal-title="Destroy this Garden?" title="Destroy current Garden"
                 data-modal-submit-text="Destroy">
             <i class="fa fa-times"></i>
         </button>
@@ -36,8 +36,10 @@
                 <div class="box-name">
                     <span class="fa fa-table"></span>
                     <span>Assigned Beds</span>
-                    <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("CreateOrAssign", "Bed")" data-modal-title="Build or Assign Bed?" title="Build or Assign Bed" 
-                            data-modal-submit-text="Next"><i class="fa fa-plus"></i></button> 
+                    <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("CreateOrAssign", "Bed")" data-modal-title="Build or Assign Bed?" title="Build or Assign Bed"
+                            data-modal-submit-text="Next">
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
             </div>
             <div class="box-content">
@@ -49,7 +51,7 @@
                 }
                 else
                 {
-                    <table class="table table-bordered table-hover table-heading">
+                    <table class="table table-hover table-heading">
                         <thead>
                             <tr>
                                 <th>
@@ -58,7 +60,7 @@
                                 <th>
                                     Dimensions
                                 </th>
-                                <th></th>
+                                @*<th></th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -70,12 +72,15 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => bed.Width) x @Html.DisplayFor(modelItem => bed.Length)
+                                        <span class="table-action-hide pull-right">
+                                            <a href="modal-parent" class="show-modal" role="button" data-id="@bed.Id" data-url="@Url.Action("Edit", "Bed")" data-modal-title="Edit Bed" title="Edit Bed" data-modal-submit-text="Save"><i class="fa fa-pencil"></i></a>
+                                            <a href="#"><i class="fa fa-times"></i></a>
+                                        </span>
                                     </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = bed.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id = bed.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = bed.Id })
-                                    </td>
+                                    @*<td class="table-action-hide">
+                                        @Html.ActionLink("Edit", "Edit", new { id = bed.Id })
+                                        @Html.ActionLink("Delete", "Delete", new { id = bed.Id })*
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -93,7 +98,7 @@
                     <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Create", "Season")" data-modal-title="Start a Season" title="Start a Season"
                             data-modal-submit-text="Start">
                         <i class="fa fa-plus"></i>
-                    </button> 
+                    </button>
                 </div>
             </div>
             <div class="box-content">
@@ -105,7 +110,7 @@
                 }
                 else
                 {
-                    <table class="table table-bordered table-hover table-heading">
+                    <table class="table table-hover table-heading">
                         <thead>
                             <tr>
                                 <th>
@@ -143,7 +148,7 @@
                     <button class="btn btn-info show-modal pull-right" role="button" href="modal-parent" data-id="@Model.Garden.Id" data-url="@Url.Action("Create", "Harvest")" data-modal-title="Start a Harvest" title="Start a Harvest"
                             data-modal-submit-text="Start">
                         <i class="fa fa-plus"></i>
-                    </button> 
+                    </button>
                 </div>
             </div>
             <div class="box-content">
@@ -155,7 +160,7 @@
                 }
                 else
                 {
-                    <table class="table table-bordered table-hover table-heading">
+                    <table class="table table-hover table-heading">
                         <thead>
                             <tr>
                                 <th>

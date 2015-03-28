@@ -132,8 +132,18 @@ h1, .h1, h2, .h2, h3, .h3 {
         color: white;
     }
 
-.table > tbody > tr > td > a:hover {
-    color: #fff;
+    .table-action-hide a {
+        opacity: 0;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+        .table-action-hide a:last-child {
+            margin-right: 0;
+        }
+
+.table > tbody > tr > td > span > a:hover {
+    color: brown;
 }
 
 .body-expanded .navbar {
@@ -871,7 +881,7 @@ ul.DTTT_dropdown.dropdown-menu {
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th,
 td.beauty-hover {
-    background-color: rgba(121, 247, 132, 0.9) !important;
+    background-color: rgba(205, 247, 209, 0.9) !important;
 }
 
     .table-hover > tbody > tr:hover > td.beauty-hover:hover {
