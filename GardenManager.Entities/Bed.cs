@@ -19,8 +19,10 @@ namespace GardenManager.Entities
         [Display(Name = "Bed Name")]
         public virtual string Alias { get; set; } // Perhaps each bed has a name, e.g. "Herb Bed"
         [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#}")]
         public virtual int Width { get; set; }
         [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#}")]
         public virtual int Length { get; set; }
 
         /************************************************

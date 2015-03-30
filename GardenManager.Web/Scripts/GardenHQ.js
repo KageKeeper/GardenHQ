@@ -47,6 +47,8 @@ $(document).on('click', '#submit-modal-form', function (e) {
             ShowCompleteMessage();
             UpdateMainMenu();
         }
+    }).fail(function (xhr, textStatus, error) {
+        ShowErrorMessage(error);
     });
 
 });
@@ -133,6 +135,11 @@ $(document).on({
                 e.preventDefault();
                 $('.notification-message-success').doTimeout("notification-message-success-timeout");
                 $('.notification-message-success').hide();
+            });
+            $('#notification-message-error-close').on('click', function (e) {
+                e.preventDefault();
+                $('.notification-message-error').doTimeout("notification-message-error-timeout");
+                $('.notification-message-error').hide();
             });
 
             //var height = window.innerHeight - 49;
@@ -243,6 +250,13 @@ $(document).on({
         function ShowCompleteMessage() {
             $('.notification-message-success').slideToggle(400).doTimeout("notification-message-success-timeout", 2000, function () {
                 $('.notification-message-success').slideToggle(400);
+            });
+        }
+
+        function ShowErrorMessage(errorMessage) {
+            $('.notification-message-error-message').text(errorMessage);
+            $('.notification-message-error').slideToggle(400).doTimeout("notification-message-error-timeout", 2000, function () {
+                $('.notification-message-error').slideToggle(400);
             });
         }
 

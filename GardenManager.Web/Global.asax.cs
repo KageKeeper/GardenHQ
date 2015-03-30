@@ -1,4 +1,5 @@
 ﻿using GardenManager.Web.CustomViewEngines;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace GardenManager.Web
     {
         protected void Application_Start()
         {
+            // Initialize global logging capabilities
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.ColoredConsole()
+                .WriteTo.RollingFile(@"C:\Logs\Log-{Date}.txt")
+                .CreateLogger();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

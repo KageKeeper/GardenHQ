@@ -27,10 +27,14 @@ namespace GardenManager.Web
                       "~/Scripts/respond.js",
                       "~/Scripts/GardenHQ.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/nprogress").Include(
+                        "~/Scripts/nprogress.*"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/style.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/nprogress.css"));
         }
     }
 }

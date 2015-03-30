@@ -12,10 +12,12 @@ using GardenManager.Web.ViewModels;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
+using GardenManager.Web.CustomClasses;
+using Serilog;
 
 namespace GardenManager.Web.Controllers
 {
-    public class GardenController : Controller
+    public class GardenController : BaseController
     {
         private GardenDb db = new GardenDb();
 
@@ -38,7 +40,7 @@ namespace GardenManager.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
 
             var gardenViewModel = new GardenViewModel(db.Gardens.ToList());
@@ -122,7 +124,7 @@ namespace GardenManager.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
             
             Garden garden = db.Gardens.Find(id);
@@ -176,7 +178,7 @@ namespace GardenManager.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
             Garden garden = db.Gardens.Find(id);
             if (garden == null)

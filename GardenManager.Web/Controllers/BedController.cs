@@ -13,10 +13,11 @@ using GardenManager.Web.ViewModels;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
+using GardenManager.Web.CustomClasses;
 
 namespace GardenManager.Web.Controllers
 {
-    public class BedController : Controller
+    public class BedController : BaseController
     {
         private GardenDb db = new GardenDb();
 
@@ -55,7 +56,7 @@ namespace GardenManager.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
             Bed bed = db.Beds.Find(id);
             if (bed == null)
@@ -138,7 +139,7 @@ namespace GardenManager.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
 
             var viewModel = new BedViewModel(GetGardens());
@@ -186,11 +187,11 @@ namespace GardenManager.Web.Controllers
         // Unassign removes the association between the selected Bed and current Garden.
         // Unassigning does NOT delete the Bed.
         // GET: Bed/Unassign/4
-        public ActionResult Unassign(int id)
+        public ActionResult Unassign(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
 
             BedViewModel viewModel = new BedViewModel(GetGardens());
@@ -234,7 +235,7 @@ namespace GardenManager.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
             Bed bed = db.Beds.Find(id);
             if (bed == null)

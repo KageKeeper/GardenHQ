@@ -21,6 +21,7 @@
                 @Html.DropDownListFor(model => model.BedId,
                     new SelectList(Model.UnassignedBeds, "Id", "Alias", Model.BedId),
                     "Select Bed To Assign", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Bed.Alias, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -32,3 +33,11 @@
     </div>
     <input type="submit" value="Save" id="submit-modal-form" class="btn btn-info" style="display: none;" />
 }
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $.validator.unobtrusive.parse("#assign-bed-form");
+
+});
+</script>

@@ -29,13 +29,13 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Bed.Width, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-2">
-                        @Html.EditorFor(model => model.Bed.Width, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Bed.Width, new { htmlAttributes = new { @class = "form-control", placeholder = "0" } })
                         @Html.ValidationMessageFor(model => model.Bed.Width, "", new { @class = "text-danger" })
                     </div>
 
                     @Html.LabelFor(model => model.Bed.Length, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-2">
-                        @Html.EditorFor(model => model.Bed.Length, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Bed.Length, new { htmlAttributes = new { @class = "form-control", placeholder = "0" } })
                         @Html.ValidationMessageFor(model => model.Bed.Length, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $.validator.unobtrusive.parse("#edit-garden-form");
+        $.validator.unobtrusive.parse("#edit-bed-form");
 
     });
 </script>

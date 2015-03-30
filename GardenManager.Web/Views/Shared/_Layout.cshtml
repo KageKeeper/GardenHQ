@@ -9,6 +9,7 @@
     <title>@ViewBag.Title - Garden HQ</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/nprogress")
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <script type="text/javascript">
@@ -25,6 +26,7 @@
 <body>
     <!-- start Header -->
     @{ Html.RenderPartial("_ModalPartial");  }
+    @*<div id="nprogress"></div>*@
     <header class="navbar">
         <div class="container-fluid expanded-panel">
             <div class="row">
@@ -57,7 +59,13 @@
                     <h4 class="warning">All is well</h4>
                     <p>Your changes were saved!</p>
                 </div>
-                <button type="button" class="close" id="notification-message-success-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="notification-message notification-message-error">
+                <div class="text">
+                    <h4 class="warning">Something went wrong....</h4>
+                    <p class="notification-message-error-message"></p>
+                </div>
+                <button type="button" class="close" id="notification-message-error-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div id="sidebar-left" class="col-xs-2 col-sm-2">
                 @Html.Partial("_MainNavigationPartial", new _NavigationViewModel(Model.Gardens))
@@ -80,5 +88,26 @@
     @Scripts.Render("~/bundles/jquerydotimeout")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+
+        // Show the progress bar
+        NProgress.start();
+
+        // Increase randomly
+        var interval = setInterval(function () { NProgress.inc(); }, 1000);
+
+        // Trigger finish when page fully loaded
+        jQuery(window).load(function () {
+            clearInterval(interval);
+            NProgress.done();
+        });
+
+        // Trigger bar when exiting the page
+        jQuery(window).unload(function () {
+            NProgress.start();
+        });
+
+    </script>
 </body>
 </html>
