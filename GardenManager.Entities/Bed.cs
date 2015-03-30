@@ -13,15 +13,15 @@ namespace GardenManager.Entities
         public virtual int Id { get; set; }
         public virtual int GardenId { get; set; }
 
-        public virtual bool AssignedToGarden { get; set; } // if the bed is not assigned to a Garden, the GardenId will be null.
+        public virtual bool AssignedToGarden { get; set; } // if the bed is not assigned to a Garden, the GardenId will be 0.
 
         [Required]
         [Display(Name = "Bed Name")]
         public virtual string Alias { get; set; } // Perhaps each bed has a name, e.g. "Herb Bed"
         [Required]
-        public virtual decimal Width { get; set; }
+        public virtual int Width { get; set; }
         [Required]
-        public virtual decimal Length { get; set; }
+        public virtual int Length { get; set; }
 
         /************************************************
          * Righy now this is placed here for future     *

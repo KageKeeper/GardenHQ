@@ -215,6 +215,10 @@
     <Compile Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.Designer.cs">
       <DependentUpon>201503271538437_AddedRequiredAnnotationsToBedProps.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\GardenMigrations\201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.cs" />
+    <Compile Include="DataContexts\GardenMigrations\201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.Designer.cs">
+      <DependentUpon>201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\GardenMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.cs" />
@@ -335,6 +339,7 @@
     <Content Include="Views\Bed\Partials\_CreateBedPartial.cshtml" />
     <Content Include="Views\Bed\Partials\_AssignBedPartial.cshtml" />
     <Content Include="Views\Bed\Partials\_EditBedPartial.cshtml" />
+    <Content Include="Views\Bed\Partials\_UnassignBedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.resx">
       <DependentUpon>201503271538437_AddedRequiredAnnotationsToBedProps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\GardenMigrations\201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.resx">
+      <DependentUpon>201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.resx">
       <DependentUpon>201412120716098_InitialCreate.cs</DependentUpon>

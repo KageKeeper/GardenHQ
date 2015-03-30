@@ -1,0 +1,31 @@
+﻿@model GardenManager.Web.ViewModels.BedViewModel
+
+
+@Html.Partial("_ModalHeaderPartial")
+
+@using (Ajax.BeginForm("Unassign", "Bed", null,
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "ajax-content",
+            OnSuccess = "OnModalSuccess"
+        }, new { @id = "unassign-bed-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Bed.Id)
+    @Html.HiddenFor(model => model.GardenId)
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            <h4>Are you sure you want to unnassign this Bed?</h4> <br />
+            <div class="form-group">
+                @Html.Label("Bed Name", new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DisplayFor(model => model.Bed.Alias)
+                </div>
+            </div><br /> <br />
+            <p><i class="fa fa-info-circle"></i> Unassigning this Bed will NOT destroy any associated data.</p>
+        </div>
+    </div>
+    @Html.Partial("_ModalFooterPartial")
+}

@@ -68,7 +68,7 @@ namespace GardenManager.Web.Controllers
         // GET: Bed/CreateOrAssign
         public ActionResult CreateOrAssign(int id)
         {
-            var viewModel = new BedViewModel (GetGardens())
+            var viewModel = new BedViewModel(GetGardens())
             {
                 Bed = new Bed(),
                 UnassignedBeds = db.Beds.Where(b => b.AssignedToGarden == false).ToList(),
@@ -81,7 +81,7 @@ namespace GardenManager.Web.Controllers
         // GET: Bed/Create/5
         public ActionResult Create(int gardenId)
         {
-            var viewModel = new BedViewModel (GetGardens())
+            var viewModel = new BedViewModel(GetGardens())
             {
                 Bed = new Bed(),
                 GardenId = gardenId
@@ -181,6 +181,52 @@ namespace GardenManager.Web.Controllers
                 return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
             return new MvcHtmlString("");
+        }
+
+        // Unassign removes the association between the selected Bed and current Garden.
+        // Unassigning does NOT delete the Bed.
+        // GET: Bed/Unassign/4
+        public ActionResult Unassign(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            BedViewModel viewModel = new BedViewModel(GetGardens());
+            viewModel.Bed = db.Beds.Find(id);
+
+            if (viewModel.Bed == null)
+            {
+                return HttpNotFound();
+            }
+
+            viewModel.GardenId = viewModel.Bed.GardenId;
+
+            return PartialView("_UnassignBedPartial", viewModel);
+        }
+
+        // POST: Bed/Unassign/4
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IHtmlString Unassign(BedViewModel viewModel)
+        {
+            Bed bed = db.Beds.Find(viewModel.Bed.Id);
+            bed.GardenId = 0;
+            bed.AssignedToGarden = false;
+            db.Beds.Attach(bed);
+            db.Entry(bed).State = EntityState.Modified;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (OptimisticConcurrencyException)
+            {
+                var ctx = ((IObjectContextAdapter)db).ObjectContext;
+                ctx.Refresh(RefreshMode.ClientWins, db.Beds);
+                ctx.SaveChanges();
+            }
+            return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
         }
 
         // GET: Bed/Delete/5

@@ -60,7 +60,6 @@
                                 <th>
                                     Dimensions
                                 </th>
-                                @*<th></th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -73,14 +72,14 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => bed.Width) x @Html.DisplayFor(modelItem => bed.Length)
                                         <span class="table-action-hide pull-right">
-                                            <a href="modal-parent" class="show-modal" role="button" data-id="@bed.Id" data-url="@Url.Action("Edit", "Bed")" data-modal-title="Edit Bed" title="Edit Bed" data-modal-submit-text="Save"><i class="fa fa-pencil"></i></a>
-                                            <a href="#"><i class="fa fa-times"></i></a>
+                                            <a href="modal-parent" class="show-modal" role="button" data-id="@bed.Id" data-url="@Url.Action("Edit", "Bed")" data-modal-title="Edit Bed" title="Edit Bed" data-modal-submit-text="Save">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a href="modal-parent" class="show-modal" role="button" data-id="@bed.Id" data-url="@Url.Action("Unassign", "Bed")" data-modal-title="Unassign Bed" title="Unassign Bed" data-modal-submit-text="Unassign">
+                                                <i class="fa fa-times"></i>
+                                            </a>
                                         </span>
                                     </td>
-                                    @*<td class="table-action-hide">
-                                        @Html.ActionLink("Edit", "Edit", new { id = bed.Id })
-                                        @Html.ActionLink("Delete", "Delete", new { id = bed.Id })*
-                                    </td>*@
                                 </tr>
                             }
                         </tbody>
