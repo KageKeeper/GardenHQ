@@ -13,7 +13,7 @@ using GardenManager.Web.ViewModels;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
-using GardenManager.Web.CustomClasses;
+using GardenManager.Web.Common;
 
 namespace GardenManager.Web.Controllers
 {

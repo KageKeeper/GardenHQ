@@ -1,5 +1,5 @@
 body {
-    color: #525252;
+    /* color: #525252; */
     background: #272b30 url(images/gardenHQ_pattern_b10.png) 0 0 repeat;
 }
 
@@ -19,9 +19,181 @@ h1, .h1, h2, .h2, h3, .h3 {
     margin: 0;
 }
 
+.container {
+    padding: 0px;
+}
+
 .modal-body p {
     font-size: 1.15rem;
 }
+
+.root-menu-index {
+    height: 100%;
+}
+
+.button-group-parent {
+    position: relative;
+    height: 50%;
+}
+
+.management-buttons-group {
+    position: absolute;
+    bottom: 0;
+}
+
+.management-button-wrapper {
+    padding: .4rem 1.5rem;
+}
+
+
+    .management-button-wrapper .btn {
+        margin-right: .5rem;
+        text-align: center;
+        font-size: 2rem;
+        font-family: 'Open Sans', sans-serif;
+        padding: .4rem 2.5rem;
+        vertical-align: middle;
+        font-weight: normal;
+        width: 240px;
+        height: 45px;
+        -o-transition: 0.3s linear;
+        -ms-transition: 0.3s linear;
+        -moz-transition: 0.3s linear;
+        -webkit-transition: 0.3s linear;
+        /* ...and now for the proper property */
+        transition: 0.3s linear;
+    }
+
+    .management-button-wrapper .btn-success {
+        background: #72a114;
+    }
+
+        .management-button-wrapper .btn-success:hover {
+            background: #9dce0a;
+        }
+
+        .management-button-wrapper .btn-success:active {
+            background: #9dce0a;
+        }
+
+        .management-button-wrapper .btn-success:focus {
+            background: #9dce0a;
+        }
+
+    .management-button-wrapper .btn-warning {
+        background: #82510b;
+    }
+
+        .management-button-wrapper .btn-warning:hover {
+            background: #eb9316;
+        }
+
+        .management-button-wrapper .btn-warning:active {
+            background: #eb9316;
+        }
+
+        .management-button-wrapper .btn-warning:focus {
+            background: #eb9316;
+        }
+
+    .management-button-wrapper .btn-primary {
+        background: #337ab7;
+    }
+
+        .management-button-wrapper .btn-primary:hover {
+            background: #265a88;
+        }
+
+        .management-button-wrapper .btn-primary:active {
+            background: #265a88;
+        }
+
+        .management-button-wrapper .btn-primary:focus {
+            background: #265a88;
+        }
+
+    .management-button-wrapper .btn-danger {
+        background: #d9534f;
+    }
+
+        .management-button-wrapper .btn-danger:hover {
+            background: #c12e2a;
+        }
+
+        .management-button-wrapper .btn-danger:active {
+            background: #c12e2a;
+        }
+
+        .management-button-wrapper .btn-danger:focus {
+            background: #c12e2a;
+        }
+
+.garden-list-wrapper {
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+.gardens-list {
+    left: 0;
+    margin-bottom: 0;
+    margin-top: 3.5rem;
+    position: relative;
+    width: 100%;
+}
+
+    .gardens-list > li {
+        border-bottom: 2px solid #555;
+    }
+
+        .gardens-list > li a {
+            color: #f5f5f5;
+            display: block;
+            padding: 2rem;
+            position: relative;
+            text-transform: uppercase;
+            width: 100%;
+            text-decoration: none;
+        }
+
+            .gardens-list > li a.active,
+            .gardens-list > li a:hover,
+            .gardens-list > li a:active {
+                background-color: #555;
+                color: #72a114;
+                -o-transition: background-color 0.3s linear;
+                -ms-transition: background-color 0.3s linear;
+                -moz-transition: background-color 0.3s linear;
+                -webkit-transition: background-color 0.3s linear;
+                /* ...and now for the proper property */
+                transition: background-color 0.3s linear;
+            }
+
+    .gardens-list a .garden-name {
+        display: block;
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .gardens-list i {
+        color: #f5f5f5;
+        opacity: 0;
+        position: absolute;
+        right: 1rem;
+        top: 2.3rem;
+    }
+
+    .gardens-list a:active i,
+    .gardens-list a:hover i {
+        opacity: 1;
+        -o-transition: opacity 0.3s linear;
+        -ms-transition: opacity 0.3s linear;
+        -moz-transition: opacity 0.3s linear;
+        -webkit-transition: opacity 0.3s linear;
+        /* ...and now for the proper property */
+        transition: opacity 0.3s linear;
+    }
 
 .notification-message {
     display: none;
@@ -113,7 +285,6 @@ h1, .h1, h2, .h2, h3, .h3 {
 .navbar {
     margin: 0;
     border: 0;
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -132,15 +303,15 @@ h1, .h1, h2, .h2, h3, .h3 {
         color: white;
     }
 
-    .table-action-hide a {
-        opacity: 0;
-        display: inline-block;
-        margin-right: 5px;
-    }
+.table-action-hide a {
+    opacity: 0;
+    display: inline-block;
+    margin-right: 5px;
+}
 
-        .table-action-hide a:last-child {
-            margin-right: 0;
-        }
+    .table-action-hide a:last-child {
+        margin-right: 0;
+    }
 
 .table > tbody > tr > td > span > a:hover {
     color: brown;
@@ -177,8 +348,8 @@ a.show-sidebar {
 }
 
 #content {
-    position: relative;
-    z-index: 10;
+    /*position: relative;*/
+    z-index: 1;
     background: #ebebeb;
     box-shadow: 0 0 6px #131313;
     padding-bottom: 3000px !important;
@@ -459,7 +630,6 @@ a.show-sidebar {
 
 .box {
     display: block;
-    z-index: 1999;
     position: relative;
     border: 1px solid #f8f8f8;
     box-shadow: 0 0 4px #D8D8D8;
@@ -583,7 +753,7 @@ a.show-sidebar {
     padding: 0;
 }
 
-.sidebar-show #sidebar-left.col-xs-2 {
+.sidebar-show #sidebar-left.col-sm-1 {
     opacity: 1;
     width: 16.666666666666664%;
     padding: 0 15px;
@@ -794,6 +964,7 @@ ul.DTTT_dropdown.dropdown-menu {
     background: #525252;
     background: #10870b url(images/gardenHQ_pattern_b10.png) 0 0 repeat;
     margin-bottom: 20px;
+    height: 2rem;
 }
 
 .breadcrumb {
@@ -2744,20 +2915,32 @@ input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="rad
     margin-left: 20px;
 }
 
+@media (min-width: 1680px) {
+    .container {
+        width: 1680px !important;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        width: 1920px !important;
+    }
+}
+
 @media (min-width: 768px) {
-    #sidebar-left.col-sm-2 {
+    #sidebar-left.col-sm-1 {
         opacity: 1;
-        width: 16.666666666666664%;
+        width: 8.33333333%;
         padding: 0 15px;
     }
 
-    .sidebar-show #sidebar-left.col-sm-2 {
+    .sidebar-show #sidebar-left.col-sm-1 {
         opacity: 0;
         width: 0;
         padding: 0;
     }
 
-    .sidebar-show #content.col-sm-10 {
+    .sidebar-show #content.col-sm-11 {
         opacity: 1;
         width: 100%;
     }

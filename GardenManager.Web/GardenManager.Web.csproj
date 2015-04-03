@@ -193,7 +193,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\SeedController.cs" />
-    <Compile Include="CustomClasses\EntryNotFoundException.cs" />
+    <Compile Include="Common\EntryNotFoundException.cs" />
     <Compile Include="DataContexts\GardenDb.cs" />
     <Compile Include="DataContexts\GardenMigrations\201412120718125_InitialCreate.cs" />
     <Compile Include="DataContexts\GardenMigrations\201412120718125_InitialCreate.Designer.cs">
@@ -262,6 +262,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\gardenHQ_pattern_b10.png" />
+    <Content Include="Content\mlpushmenu.css" />
     <Content Include="Content\nprogress.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
@@ -280,6 +281,7 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\classie.js" />
     <Content Include="Scripts\GardenHQ.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -292,6 +294,7 @@
     <Content Include="Scripts\jquery.ba-dotimeout.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mlpushmenu.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\nprogress.js" />
@@ -359,6 +362,7 @@
     <Content Include="Views\Bed\Partials\_AssignBedPartial.cshtml" />
     <Content Include="Views\Bed\Partials\_EditBedPartial.cshtml" />
     <Content Include="Views\Bed\Partials\_UnassignBedPartial.cshtml" />
+    <Content Include="Views\Garden\Partials\_IndexGardenPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

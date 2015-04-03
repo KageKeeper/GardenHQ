@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace GardenManager.Web.Controllers
 {
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
         public JsonResult ThrowJsonError(Exception e)
         {

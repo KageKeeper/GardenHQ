@@ -1,0 +1,47 @@
+﻿@using GardenManager.Entities
+@model IEnumerable<Garden>
+
+
+<h1>Your Gardens</h1>
+
+<div class="management-button-wrapper">
+    <button class="btn btn-success btn-lg btn-block show-modal" role="button" href="#modal-parent" title="Build New Garden" data-url="@Url.Action("Create", "Garden")"
+            data-modal-title="Build Garden" data-modal-submit-text="Build!">
+        Build New Garden
+    </button>
+</div>
+<div class="garden-list-wrapper">
+    @if (Model.Count() > 0)
+    {
+        <ul class="gardens-list">
+            @foreach(var garden in Model)
+            {
+                <li>
+                    <a class="garden-details-link" href="@Url.Action("Details", "Garden", new { id=garden.Id })">
+                        <span class="garden-name">@Html.DisplayFor(modelItem => garden.Name)</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
+<script type="text/javascript">
+    $('.show-modal').click(function (e) {
+
+        e.preventDefault();
+
+        ShowModal(this);
+    });
+
+
+    $('.garden-details-link').click(function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).attr('href');
+        LoadAjaxContent(url);
+    });
+</script>

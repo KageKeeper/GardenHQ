@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GardenManager.Web.CustomClasses
+namespace GardenManager.Web.Common
 {
     public class EntryNotFoundException : Exception
     {

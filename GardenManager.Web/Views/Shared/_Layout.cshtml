@@ -7,9 +7,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Garden HQ</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,400' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/nprogress")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerydotimeout")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/gardenHQ")
+
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <script type="text/javascript">
@@ -24,69 +31,105 @@
     </script>
 </head>
 <body>
-    <!-- start Header -->
     @{ Html.RenderPartial("_ModalPartial");  }
-    @*<div id="nprogress"></div>*@
-    <header class="navbar">
-        <div class="container-fluid expanded-panel">
+    <div class="container container-fluid">
+        <!-- Push Wrapper -->
+        <div class="mp-pusher" id="mp-pusher">
             <div class="row">
-                <div id="logo" class="col-xs-12 col-sm-2">
-                    @Html.ActionLink("Garden HQ", "Index", "Home", new { area = "" }, null)
-                </div>
-                <div id="top-panel" class="col-xs-12 col-sm-10">
-                    <div class="row">
-                        <div class="col-xs-8 col-sm-4">
-                            <a href="#" class="show-sidebar">
-                                <span class="fa fa-bars"></span>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 col-sm-8">
-                            <ul class="nav navbar-nav pull-right panel-menu">
-                                <li>@Html.Partial("_LoginPartial")</li>
-                            </ul>
+                <!-- mp-menu -->
+                <nav id="mp-menu" class="mp-menu">
+                    <div class="mp-level">
+                        <div class="root-menu-index">
+                            @Html.Partial("~/Views/Garden/Partials/_IndexGardenPartial.cshtml", Model.Gardens)
+                            <div class="button-group-parent">
+                                <div class="management-buttons-group">
+                                    <!-- TODO: Extract and make into a partial -->
+                                    <div class="management-button-wrapper">
+                                        <button class="btn btn-warning btn-lg btn-block management-button" role="button" href="@Url.Action("Index", "Seed")" title="Seed Management">
+                                            Seed Management
+                                        </button>
+                                    </div>
+                                    <div class="management-button-wrapper">
+                                        <button class="btn btn-primary btn-lg btn-block management-button" role="button" href="@Url.Action("Index", "Bed")" title="Bed Management">
+                                            Bed Management
+                                        </button>
+                                    </div>
+                                    <div class="management-button-wrapper">
+                                        <button class="btn btn-danger btn-lg btn-block management-button" role="button" href="@Url.Action("Index", "Admin")" title="Site Management">
+                                            Site Management
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </nav>
             </div>
-        </div>
-    </header>
-    <!-- end Header -->
-    <!-- start Container -->
-    <div id="main" class="container-fluid" style="min-height: 906px;">
-        <div class="row">
-            <div class="notification-message notification-message-success">
-                <div class="text">
-                    <h4 class="warning">All is well</h4>
-                    <p>Your changes were saved!</p>
-                </div>
-            </div>
-            <div class="notification-message notification-message-error">
-                <div class="text">
-                    <h4 class="warning">Something went wrong....</h4>
-                    <p class="notification-message-error-message"></p>
-                </div>
-                <button type="button" class="close" id="notification-message-error-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div id="sidebar-left" class="col-xs-2 col-sm-2">
-                @Html.Partial("_MainNavigationPartial", new _NavigationViewModel(Model.Gardens))
-            </div>
-            <div id="content">
-                <div id="ajax-content">
-                    @RenderBody()
-                    <hr />
-                </div>
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - Garden HQ</p>
-                </footer>
-            </div>
-        </div>
-    </div>
-
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquerydotimeout")
-    @Scripts.Render("~/bundles/bootstrap")
+            <!-- /mp-menu -->
+            <div class="scroller">
+                <!-- this is for emulating position fixed of the nav -->
+                <div class="scroller-inner">
+                    <!-- start Header -->
+                    <header class="navbar">
+                        <div class="container-fluid expanded-panel">
+                            <div class="row">
+                                <div id="logo" class="col-xs-12 col-sm-1">
+                                    @*@Html.ActionLink("Garden HQ", "Index", "Home", new { area = "" }, null)*@
+                                    <a href="#" id="trigger" class="show-root-menu"><i class="fa fa-reorder"></i></a>
+                                </div>
+                                <div id="top-panel" class="col-xs-12 col-sm-11">
+                                    <div class="row">
+                                        <div class="col-xs-8 col-sm-4">
+                                            <a href="#" class="show-sidebar">
+                                                <span class="fa fa-bars"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-8">
+                                            <ul class="nav navbar-nav pull-right panel-menu">
+                                                <li>@Html.Partial("_LoginPartial")</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- end Header -->
+                    <!-- start Container -->
+                    <div id="main" class="container-fluid" style="min-height: 906px;">
+                        <div class="row">
+                            <div class="notification-message notification-message-success">
+                                <div class="text">
+                                    <h4 class="warning">All is well</h4>
+                                    <p>Your changes were saved!</p>
+                                </div>
+                                <button type="button" class="close" id="notification-message-error-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="notification-message notification-message-error">
+                                <div class="text">
+                                    <h4 class="warning">Something went wrong....</h4>
+                                    <p class="notification-message-error-message"></p>
+                                </div>
+                                <button type="button" class="close" id="notification-message-error-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div id="sidebar-left" class="col-xs-12 col-sm-1">
+                                @Html.Partial("_MainNavigationPartial", new _NavigationViewModel(Model.Gardens))
+                            </div>
+                            <div id="content">
+                                <div id="ajax-content">
+                                    @RenderBody()
+                                    <hr />
+                                </div>
+                                <footer>
+                                    <p>&copy; @DateTime.Now.Year - Garden HQ</p>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /scroller-inner -->
+            </div> <!-- /scroller -->
+        </div> <!-- mp-pusher -->
+    </div> <!-- container -->
     @RenderSection("scripts", required: false)
 
     <script>
@@ -107,6 +150,14 @@
         jQuery(window).unload(function () {
             NProgress.start();
         });
+
+        $('.management-button').click(function (e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            LoadAjaxContent(url);
+        });
+
+        mlPushMenu = new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
 
     </script>
 </body>

@@ -24,15 +24,18 @@ namespace GardenManager.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/GardenHQ.js"));
+                      "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/nprogress").Include(
-                        "~/Scripts/nprogress.*"));
+            bundles.Add(new ScriptBundle("~/bundles/gardenHQ").Include(
+                "~/Scripts/GardenHQ.js",
+                "~/Scripts/mlpushmenu.*",
+                "~/Scripts/classie.*",
+                "~/Scripts/nprogress.*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/style.css",
+                      "~/Content/mlpushmenu.css",
                       "~/Content/site.css",
                       "~/Content/nprogress.css"));
         }
