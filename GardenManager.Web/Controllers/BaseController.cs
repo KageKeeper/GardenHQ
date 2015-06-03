@@ -6,8 +6,14 @@ using System.Web.Mvc;
 
 namespace GardenManager.Web.Controllers
 {
+    /// <summary>
+    /// This will include various behaviours commonly used in all Controllers.
+    /// </summary>
     public abstract class BaseController : Controller
     {
+        /// <summary>
+        /// Adds the ability to return an easy to manage JSON error message to the UI.
+        /// </summary>
         public JsonResult ThrowJsonError(Exception e)
         {
             Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;

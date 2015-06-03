@@ -8,6 +8,9 @@ namespace GardenManager.Web.CustomViewEngines
 {
     public class GardenHQViewEngine : RazorViewEngine
     {
+        /// <summary>
+        /// This allows the customization of the locations in which views will be automatically searched.
+        /// </summary>
         public GardenHQViewEngine()
         {
             string[] locations = new string[] {

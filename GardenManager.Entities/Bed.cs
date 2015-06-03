@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace GardenManager.Entities
 {
-    // A Bed can be assigned or unassigned to a Garden. 
+    // A Bed can be assigned to a Garden, or not assigned at all.
+
+    /// <summary>
+    /// Represents a single Bed in which to plant. A Bed can be assigned to a Garden, or not assigned at all.
+    /// </summary>
     public class Bed
     {
         public virtual int Id { get; set; }
@@ -17,7 +21,7 @@ namespace GardenManager.Entities
 
         [Required]
         [Display(Name = "Bed Name")]
-        public virtual string Alias { get; set; } // Perhaps each bed has a name, e.g. "Herb Bed"
+        public virtual string Alias { get; set; } // A name for the Bed, e.g. "Herb Bed"
         [Required]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#}")]
         public virtual int Width { get; set; }
@@ -26,14 +30,14 @@ namespace GardenManager.Entities
         public virtual int Length { get; set; }
 
         /************************************************
-         * Righy now this is placed here for future     *
+         * Right now this is placed here for future     *
          * functionality                                *
          ***********************************************/
         [Display(Name = "Raised Bed")]
         public virtual bool IsRaisedBed { get; set; }
 
         /************************************************
-        * Righy now this is placed here for future     *
+        * Right now this is placed here for future     *
         * functionality                                *
         ***********************************************/
         [Display(Name = "Uses SFG Method")]
