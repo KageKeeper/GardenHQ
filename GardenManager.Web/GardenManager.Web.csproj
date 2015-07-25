@@ -66,6 +66,10 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -150,9 +154,6 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
@@ -194,54 +195,6 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\SeedController.cs" />
     <Compile Include="Common\EntryNotFoundException.cs" />
-    <Compile Include="DataContexts\GardenDb.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201412120718125_InitialCreate.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201412120718125_InitialCreate.Designer.cs">
-      <DependentUpon>201412120718125_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201412121936069_EnumsToTables.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201412121936069_EnumsToTables.Designer.cs">
-      <DependentUpon>201412121936069_EnumsToTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201412122026460_MinorTableChange.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201412122026460_MinorTableChange.Designer.cs">
-      <DependentUpon>201412122026460_MinorTableChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201412130708292_SeasonTableChange.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201412130708292_SeasonTableChange.Designer.cs">
-      <DependentUpon>201412130708292_SeasonTableChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201412132223424_AddingZoneIdToGardenEntity.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201412132223424_AddingZoneIdToGardenEntity.Designer.cs">
-      <DependentUpon>201412132223424_AddingZoneIdToGardenEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201503190525279_AddedSeasonsToDbContext.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201503190525279_AddedSeasonsToDbContext.Designer.cs">
-      <DependentUpon>201503190525279_AddedSeasonsToDbContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.Designer.cs">
-      <DependentUpon>201503210329160_MakeGardenNameRequired.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201503260616012_AddedAssignedToGardenColumnToBedEntity.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201503260616012_AddedAssignedToGardenColumnToBedEntity.Designer.cs">
-      <DependentUpon>201503260616012_AddedAssignedToGardenColumnToBedEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.Designer.cs">
-      <DependentUpon>201503271538437_AddedRequiredAnnotationsToBedProps.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.cs" />
-    <Compile Include="DataContexts\GardenMigrations\201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.Designer.cs">
-      <DependentUpon>201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\GardenMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\IdentityDb.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.Designer.cs">
-      <DependentUpon>201412120716098_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -366,6 +319,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DataContexts\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Menu\" />
   </ItemGroup>
@@ -374,45 +328,18 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GardenManager.DAL\GardenManager.DAL.csproj">
+      <Project>{87cbdcfb-0426-436c-9302-64e59d5b65a4}</Project>
+      <Name>GardenManager.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GardenManager.Entities\GardenManager.Entities.csproj">
       <Project>{ab4b695b-669e-47e1-be72-b9d9f7d0ed78}</Project>
       <Name>GardenManager.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201412120718125_InitialCreate.resx">
-      <DependentUpon>201412120718125_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201412121936069_EnumsToTables.resx">
-      <DependentUpon>201412121936069_EnumsToTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201412122026460_MinorTableChange.resx">
-      <DependentUpon>201412122026460_MinorTableChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201412130708292_SeasonTableChange.resx">
-      <DependentUpon>201412130708292_SeasonTableChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201412132223424_AddingZoneIdToGardenEntity.resx">
-      <DependentUpon>201412132223424_AddingZoneIdToGardenEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201503190525279_AddedSeasonsToDbContext.resx">
-      <DependentUpon>201503190525279_AddedSeasonsToDbContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201503210329160_MakeGardenNameRequired.resx">
-      <DependentUpon>201503210329160_MakeGardenNameRequired.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201503260616012_AddedAssignedToGardenColumnToBedEntity.resx">
-      <DependentUpon>201503260616012_AddedAssignedToGardenColumnToBedEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201503271538437_AddedRequiredAnnotationsToBedProps.resx">
-      <DependentUpon>201503271538437_AddedRequiredAnnotationsToBedProps.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\GardenMigrations\201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.resx">
-      <DependentUpon>201503300401520_ChangedWidthAndLengthOfBedTypeFromDecimalToInt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201412120716098_InitialCreate.resx">
-      <DependentUpon>201412120716098_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\GardenManager.Models\GardenManager.Models.csproj">
+      <Project>{a3ac908d-bfa9-4865-b391-a8cac6f6bc2c}</Project>
+      <Name>GardenManager.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

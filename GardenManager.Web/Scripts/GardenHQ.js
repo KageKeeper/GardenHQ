@@ -24,7 +24,7 @@ $(document).on('click', '#submit-modal-form', function (e) {
             $('#modal-parent').modal('hide');
             LoadAjaxContent(data);
             ShowCompleteMessage();
-            UpdateMainMenu();
+            UpdateRootGardenMenu();
             if (mlPushMenu.open) { // if the root menu is showing when a modal is closed...
                 mlPushMenu.resetMenu(); // trigger the click to close it..
             }
@@ -141,13 +141,13 @@ function ShowErrorMessage(errorMessage) {
     });
 }
 
-function UpdateMainMenu() {
+function UpdateRootGardenMenu() {
     $.ajax({
         mimetype: 'text/html; charset=utf-8',
-        url: '/Menu/UpdateMainMenu',
+        url: '/Menu/UpdateRootGardenMenu',
         type: 'GET',
         success: function (data) {
-            $('#sidebar-left').html(data);
+            $('.root-garden-menu-index').html(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(errorThrown);

@@ -16,8 +16,8 @@ namespace GardenManager.Entities
         public virtual int ZoneId { get; set; }
         public virtual PlantHardinessZone Zone { get; set; }
 
-        public virtual IQueryable<Season> Seasons { get; set; }
-        public virtual IQueryable<Bed> Beds { get; set; }
-        public virtual IQueryable<Harvest> Harvests { get; set; }
+        public virtual ICollection<Season> Seasons { get; set; }
+        public virtual ICollection<Bed> Beds { get; set; }
+        public virtual ICollection<Harvest> Harvests { get; set; }
     }
 }

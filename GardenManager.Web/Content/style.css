@@ -32,13 +32,14 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 .button-group-parent {
-    position: relative;
-    height: 50%;
+    position: absolute;
+    bottom: 0;
 }
 
 .management-buttons-group {
     position: absolute;
     bottom: 0;
+    margin-bottom: 2rem;
 }
 
 .management-button-wrapper {

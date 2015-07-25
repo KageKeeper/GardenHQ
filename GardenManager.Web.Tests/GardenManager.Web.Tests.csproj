@@ -9,7 +9,7 @@
     <ProjectGuid>{5688BE08-1D2B-4EC4-948C-079081521933}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GardenManager.Web.Tests</RootNamespace>
+    <RootNamespace>GardenManager.DAL.Tests</RootNamespace>
     <AssemblyName>GardenManager.Web.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

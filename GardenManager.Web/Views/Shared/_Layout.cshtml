@@ -40,7 +40,9 @@
                 <nav id="mp-menu" class="mp-menu">
                     <div class="mp-level">
                         <div class="root-menu-index">
-                            @Html.Partial("~/Views/Garden/Partials/_IndexGardenPartial.cshtml", Model.Gardens)
+                            <div class="root-garden-menu-index">
+                                @Html.Partial("~/Views/Garden/Partials/_IndexGardenPartial.cshtml", Model.Gardens)
+                            </div>
                             <div class="button-group-parent">
                                 <div class="management-buttons-group">
                                     <!-- TODO: Extract and make into a partial -->

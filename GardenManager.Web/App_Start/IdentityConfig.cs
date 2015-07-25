@@ -10,8 +10,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using GardenManager.Web.Models;
-using GardenManager.Web.DataContexts;
+using GardenManager.Models;
+using GardenManager.DAL.DataContexts;
 
 namespace GardenManager.Web
 {

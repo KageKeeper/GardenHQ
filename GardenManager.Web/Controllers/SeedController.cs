@@ -8,28 +8,40 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GardenManager.Entities;
-using GardenManager.Web.DataContexts;
+using GardenManager.DAL.DataContexts;
+using GardenManager.DAL.Interfaces;
+using GardenManager.DAL.Repositories;
 
 namespace GardenManager.Web.Controllers
 {
     public class SeedController : Controller
     {
-        private GardenDb db = new GardenDb();
+        private IBaseRepository<Seed> SeedRepository = null;
+
+        public SeedController()
+        {
+            this.SeedRepository = new BaseRepository<Seed>();
+        }
+
+        public SeedController(IBaseRepository<Seed> repository)
+        {
+            this.SeedRepository = repository;
+        }
 
         // GET: Seed
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Seeds.ToListAsync());
+            return View(SeedRepository.Get());
         }
 
         // GET: Seed/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seed seed = await db.Seeds.FindAsync(id);
+            Seed seed = SeedRepository.GetByID(id);
             if (seed == null)
             {
                 return HttpNotFound();
@@ -48,12 +60,12 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,BedId,Name,Rating,Comments,SeedsPerPackage,SeedOrderLocation,HaveOnHand,GrowThisSeason")] Seed seed)
+        public ActionResult Create([Bind(Include = "Id,BedId,Name,Rating,Comments,SeedsPerPackage,SeedOrderLocation,HaveOnHand,GrowThisSeason")] Seed seed)
         {
             if (ModelState.IsValid)
             {
-                db.Seeds.Add(seed);
-                await db.SaveChangesAsync();
+                SeedRepository.Insert(seed);
+                SeedRepository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -61,13 +73,13 @@ namespace GardenManager.Web.Controllers
         }
 
         // GET: Seed/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seed seed = await db.Seeds.FindAsync(id);
+            Seed seed = SeedRepository.GetByID(id);
             if (seed == null)
             {
                 return HttpNotFound();
@@ -80,25 +92,25 @@ namespace GardenManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,BedId,Name,Rating,Comments,SeedsPerPackage,SeedOrderLocation,HaveOnHand,GrowThisSeason")] Seed seed)
+        public ActionResult Edit([Bind(Include = "Id,BedId,Name,Rating,Comments,SeedsPerPackage,SeedOrderLocation,HaveOnHand,GrowThisSeason")] Seed seed)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(seed).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                SeedRepository.Update(seed);
+                SeedRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(seed);
         }
 
         // GET: Seed/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seed seed = await db.Seeds.FindAsync(id);
+            Seed seed = SeedRepository.GetByID(id);
             if (seed == null)
             {
                 return HttpNotFound();
@@ -109,21 +121,21 @@ namespace GardenManager.Web.Controllers
         // POST: Seed/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Seed seed = await db.Seeds.FindAsync(id);
-            db.Seeds.Remove(seed);
-            await db.SaveChangesAsync();
+            Seed seed = SeedRepository.GetByID(id);
+            SeedRepository.Delete(seed);
+            SeedRepository.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

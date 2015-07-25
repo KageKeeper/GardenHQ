@@ -1,4 +1,7 @@
-﻿using GardenManager.Web.DataContexts;
+﻿using GardenManager.DAL.DataContexts;
+using GardenManager.DAL.Interfaces;
+using GardenManager.DAL.Repositories;
+using GardenManager.Entities;
 using GardenManager.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,11 +13,21 @@ namespace GardenManager.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private GardenDb db = new GardenDb();
+        private IBaseRepository<Garden> gardenRepository = null;
+
+        public HomeController()
+        {
+            this.gardenRepository = new BaseRepository<Garden>();
+        }
+
+        public HomeController(IBaseRepository<Garden> repository)
+        {
+            this.gardenRepository = repository;
+        }
 
         public ActionResult Index()
         {
-            var viewModel = new _LayoutViewModel(db.Gardens.ToList());
+            var viewModel = new _LayoutViewModel(gardenRepository.Get());
             return View(viewModel);
         }
 

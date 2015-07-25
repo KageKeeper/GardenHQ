@@ -43,6 +43,8 @@ namespace GardenManager.Entities
         [Display(Name = "Uses SFG Method")]
         public virtual bool UsingSFG { get; set; } // a check to see if the Square Foot Gardening method is being used
 
+        // Navigation Properties
+        public virtual Garden Garden { get; set; }
         public virtual IQueryable<Seed> SeedsInBed { get; set; } 
     }
 }

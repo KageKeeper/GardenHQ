@@ -5,8 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using GardenManager.Web.Models;
-using GardenManager.Web.DataContexts;
+using GardenManager.Models;
+using GardenManager.DAL.DataContexts;
 
 namespace GardenManager.Web
 {

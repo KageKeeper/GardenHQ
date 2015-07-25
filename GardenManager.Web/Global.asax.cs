@@ -30,5 +30,11 @@ namespace GardenManager.Web
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new GardenHQViewEngine());
         }
+
+        protected void Application_EndRequest()
+        {
+            // this used for debugging 500 Internal Server errors....
+            Exception[] exceptions = this.Context.AllErrors;
+        }
     }
 }
