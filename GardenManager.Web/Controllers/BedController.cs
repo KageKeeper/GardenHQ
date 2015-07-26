@@ -16,35 +16,32 @@ using System.Data.Entity.Core.Objects;
 using GardenManager.Web.Common;
 using GardenManager.DAL.Interfaces;
 using GardenManager.DAL.Repositories;
+using GardenManager.DAL.Services;
 
 namespace GardenManager.Web.Controllers
 {
     public class BedController : BaseController
     {
-        private IBaseRepository<Bed> bedRepository = null;
+        private IBedService _bedService;
 
-        public BedController()
+        public BedController(IBedService bedService, 
+            IBaseService baseService) : base(baseService)
         {
-            this.bedRepository = new BaseRepository<Bed>();
-        }
-
-        public BedController(IBaseRepository<Bed> repository)
-        {
-            this.bedRepository = repository;
+            this._bedService = bedService;
         }
 
         // GET: Bed
         public ActionResult Index()
         {
-            return View(bedRepository.Get());
+            return View(_bedService.GetBeds());
         }
 
         public PartialViewResult GetAssignPartial(int id)
         {
-            var viewModel = new BedViewModel(GetGardens())
+            var viewModel = new BedViewModel(_bedService.GetGardens())
             {
                 Bed = new Bed(),
-                UnassignedBeds = bedRepository.Get(b => b.AssignedToGarden == false),
+                UnassignedBeds = _bedService.GetUnassignedBeds(),
                 GardenId = id
             };
 
@@ -53,10 +50,10 @@ namespace GardenManager.Web.Controllers
 
         public PartialViewResult GetCreatePartial(int id)
         {
-            var viewModel = new BedViewModel(GetGardens())
+            var viewModel = new BedViewModel(_bedService.GetGardens())
             {
                 Bed = new Bed(),
-                UnassignedBeds = bedRepository.Get(b => b.AssignedToGarden == false),
+                UnassignedBeds = _bedService.GetUnassignedBeds(),
                 GardenId = id
             };
 
@@ -70,7 +67,7 @@ namespace GardenManager.Web.Controllers
             {
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
-            Bed bed = bedRepository.GetByID(id);
+            Bed bed = _bedService.GetBedByID(id);
             if (bed == null)
             {
                 return HttpNotFound();
@@ -81,10 +78,10 @@ namespace GardenManager.Web.Controllers
         // GET: Bed/CreateOrAssign
         public ActionResult CreateOrAssign(int id)
         {
-            var viewModel = new BedViewModel(GetGardens())
+            var viewModel = new BedViewModel(_bedService.GetGardens())
             {
                 Bed = new Bed(),
-                UnassignedBeds = bedRepository.Get(b => b.AssignedToGarden == false),
+                UnassignedBeds = _bedService.GetUnassignedBeds(),
                 GardenId = id
             };
 
@@ -94,7 +91,7 @@ namespace GardenManager.Web.Controllers
         // GET: Bed/Create/5
         public ActionResult Create(int gardenId)
         {
-            var viewModel = new BedViewModel(GetGardens())
+            var viewModel = new BedViewModel(_bedService.GetGardens())
             {
                 Bed = new Bed(),
                 GardenId = gardenId
@@ -119,8 +116,8 @@ namespace GardenManager.Web.Controllers
                     GardenId = viewModel.GardenId,
                     AssignedToGarden = true
                 };
-                bedRepository.Insert(bed);
-                bedRepository.Save();
+                _bedService.AddBed(bed);
+
                 return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
 
@@ -135,13 +132,11 @@ namespace GardenManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Bed bed = bedRepository.Get(b => b.Id == viewModel.BedId).First();
+                Bed bed = _bedService.GetBedByID(viewModel.BedId);
                 bed.GardenId = viewModel.GardenId;
                 bed.AssignedToGarden = true;
 
-                bedRepository.Update(bed);
-                //db.Entry(bed).State = EntityState.Modified;
-                bedRepository.Save();
+                _bedService.UpdateBed(bed);
                 return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
 
@@ -155,8 +150,8 @@ namespace GardenManager.Web.Controllers
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
 
-            var viewModel = new BedViewModel(GetGardens());
-            viewModel.Bed = bedRepository.GetByID(id);
+            var viewModel = new BedViewModel(_bedService.GetGardens());
+            viewModel.Bed = _bedService.GetBedByID(id);
             if (viewModel.Bed == null)
             {
                 return HttpNotFound();
@@ -176,13 +171,12 @@ namespace GardenManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Bed bed = bedRepository.GetByID(viewModel.Bed.Id);
+                Bed bed = _bedService.GetBedByID(viewModel.Bed.Id);
                 bed.Alias = viewModel.Bed.Alias;
                 bed.Width = viewModel.Bed.Width;
                 bed.Length = viewModel.Bed.Length;
 
-                bedRepository.Update(bed);
-                bedRepository.Save();
+                _bedService.UpdateBed(bed);
 
                 return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
             }
@@ -199,8 +193,8 @@ namespace GardenManager.Web.Controllers
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
 
-            BedViewModel viewModel = new BedViewModel(GetGardens());
-            viewModel.Bed = bedRepository.GetByID(id);
+            BedViewModel viewModel = new BedViewModel(_bedService.GetGardens());
+            viewModel.Bed = _bedService.GetBedByID(id);
 
             if (viewModel.Bed == null)
             {
@@ -217,12 +211,11 @@ namespace GardenManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public IHtmlString Unassign(BedViewModel viewModel)
         {
-            Bed bed = bedRepository.GetByID(viewModel.Bed.Id);
+            Bed bed = _bedService.GetBedByID(viewModel.Bed.Id);
             bed.GardenId = 0;
             bed.AssignedToGarden = false;
 
-            bedRepository.Update(bed);
-            bedRepository.Save();
+            _bedService.UpdateBed(bed);
 
             return new MvcHtmlString(Url.Action("Details", "Garden", new { id = viewModel.GardenId }));
         }
@@ -234,7 +227,7 @@ namespace GardenManager.Web.Controllers
             {
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
-            Bed bed = bedRepository.GetByID(id);
+            Bed bed = _bedService.GetBedByID(id);
             if (bed == null)
             {
                 return HttpNotFound();
@@ -247,27 +240,9 @@ namespace GardenManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Bed bed = bedRepository.GetByID(id);
-            bedRepository.Delete(bed);
-            bedRepository.Save();
+            Bed bed = _bedService.GetBedByID(id);
+            _bedService.DeleteBed(bed);
             return RedirectToAction("Index");
-        }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        /// <summary>
-        /// Returns an IEnumerable List of Garden
-        /// </summary>
-        private IEnumerable<Garden> GetGardens()
-        {
-            return bedRepository.Get<Garden>();
         }
     }
 }

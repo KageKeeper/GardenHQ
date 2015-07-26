@@ -12,27 +12,21 @@ namespace GardenManager.DAL.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private GardenContext context = null; 
-        private DbSet<TEntity> dbSet = null;
+        protected GardenContext _DbContext = null; 
+        private DbSet<TEntity> _dbSet = null;
 
-        public BaseRepository()
+        public BaseRepository(IUnitOfWork unitOfWork)
         {
-            this.context = new GardenContext();
-            dbSet = context.Set<TEntity>();
+            this._DbContext = unitOfWork.DbContext;
+            this._dbSet = _DbContext.Set<TEntity>();
         }
 
-        public BaseRepository(GardenContext db)
-        {
-            this.context = db;
-            dbSet = context.Set<TEntity>();
-        }
-
-        public virtual IEnumerable<TEntity> Get(
+        public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
             {
@@ -55,51 +49,45 @@ namespace GardenManager.DAL.Repositories
             }
         }
 
-        public virtual IEnumerable<T> Get<T>() where T : class
+        public IEnumerable<T> Get<T>() where T : class
         {
-            return this.context.Set<T>().AsEnumerable();
+            return this._DbContext.Set<T>().AsEnumerable();
         }
 
-        public virtual TEntity GetByID(object id)
+        public IQueryable<T> Fetch<T>() where T : class
         {
-            return dbSet.Find(id);
+            return this._DbContext.Set<T>().AsQueryable();
         }
 
-        // This will be used for Lookup Table functionality
-        public virtual IQueryable<T> Fetch<T>() where T : class
+        public TEntity GetByID(object id)
         {
-            return this.context.Set<T>().AsQueryable();
+            return _dbSet.Find(id);
         }
 
-        public virtual void Insert(TEntity entity)
+        public void Insert(TEntity entity)
         {
-            dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
-        public virtual void Delete(object id)
+        public void Delete(object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
+            TEntity entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
 
-        public virtual void Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
-            if (context.Entry(entity).State == EntityState.Detached)
+            if (_DbContext.Entry(entity).State == EntityState.Detached)
             {
-                dbSet.Attach(entity);
+                _dbSet.Attach(entity);
             }
-            dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
-        public virtual void Update(TEntity entity)
+        public void Update(TEntity entity)
         {
-            dbSet.Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public virtual void Save()
-        {
-            context.SaveChanges();
+            _dbSet.Attach(entity);
+            _DbContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }

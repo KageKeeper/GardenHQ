@@ -14,16 +14,11 @@ namespace GardenManager.DAL.Interfaces
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
         IEnumerable<T> Get<T>() where T : class;
-        TEntity GetByID(object id);
         IQueryable<T> Fetch<T>() where T : class;
+        TEntity GetByID(object id);
         void Insert(TEntity entity);
         void Update(TEntity entity);
         void Delete(object id);
         void Delete(TEntity entity);
-
-        //void Dispose(bool disposing);
-        //void Dispose();
-
-        void Save();
     }
 }

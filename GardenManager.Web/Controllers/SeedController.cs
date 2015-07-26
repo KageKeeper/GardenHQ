@@ -11,27 +11,24 @@ using GardenManager.Entities;
 using GardenManager.DAL.DataContexts;
 using GardenManager.DAL.Interfaces;
 using GardenManager.DAL.Repositories;
+using GardenManager.DAL.Services;
 
 namespace GardenManager.Web.Controllers
 {
-    public class SeedController : Controller
+    public class SeedController : BaseController
     {
-        private IBaseRepository<Seed> SeedRepository = null;
+        private ISeedService _seedService;
 
-        public SeedController()
+        public SeedController(ISeedService seedService,
+            IBaseService baseService) : base(baseService)
         {
-            this.SeedRepository = new BaseRepository<Seed>();
-        }
-
-        public SeedController(IBaseRepository<Seed> repository)
-        {
-            this.SeedRepository = repository;
+            this._seedService = seedService;
         }
 
         // GET: Seed
         public ActionResult Index()
         {
-            return View(SeedRepository.Get());
+            return View(_seedService.GetSeeds());
         }
 
         // GET: Seed/Details/5
@@ -41,7 +38,7 @@ namespace GardenManager.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seed seed = SeedRepository.GetByID(id);
+            Seed seed = _seedService.GetSeedByID(id);
             if (seed == null)
             {
                 return HttpNotFound();
@@ -64,8 +61,7 @@ namespace GardenManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                SeedRepository.Insert(seed);
-                SeedRepository.Save();
+                _seedService.AddSeed(seed);
                 return RedirectToAction("Index");
             }
 
@@ -79,7 +75,7 @@ namespace GardenManager.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seed seed = SeedRepository.GetByID(id);
+            Seed seed = _seedService.GetSeedByID(id);
             if (seed == null)
             {
                 return HttpNotFound();
@@ -96,8 +92,7 @@ namespace GardenManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                SeedRepository.Update(seed);
-                SeedRepository.Save();
+                _seedService.UpdateSeed(seed);
                 return RedirectToAction("Index");
             }
             return View(seed);
@@ -110,7 +105,7 @@ namespace GardenManager.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seed seed = SeedRepository.GetByID(id);
+            Seed seed = _seedService.GetSeedByID(id);
             if (seed == null)
             {
                 return HttpNotFound();
@@ -123,19 +118,9 @@ namespace GardenManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Seed seed = SeedRepository.GetByID(id);
-            SeedRepository.Delete(seed);
-            SeedRepository.Save();
+            Seed seed = _seedService.GetSeedByID(id);
+            _seedService.DeleteSeed(seed);
             return RedirectToAction("Index");
         }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

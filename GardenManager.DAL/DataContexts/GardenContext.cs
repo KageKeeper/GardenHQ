@@ -13,8 +13,8 @@ namespace GardenManager.DAL.DataContexts
         public GardenContext()
             : base("DefaultConnection") { }
 
-        public GardenContext(string connectioNString)
-            : base(connectioNString) { }
+        public GardenContext(string connectionString)
+            : base(connectionString) { }
 
         public DbSet<Garden> Gardens { get; set; }
         public DbSet<Seed> Seeds { get; set; }

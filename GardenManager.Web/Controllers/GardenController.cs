@@ -17,27 +17,24 @@ using GardenManager.DAL;
 using GardenManager.DAL.Interfaces;
 using GardenManager.DAL.Repositories;
 using GardenManager.DAL.DataContexts;
+using GardenManager.DAL.Services;
 
 namespace GardenManager.Web.Controllers
 {
     public class GardenController : BaseController
     {
-        private IBaseRepository<Garden> gardenRepository = null;
+        private IGardenService _gardenService;
 
-        public GardenController()
+        public GardenController(IGardenService gardenService,
+            IBaseService baseService) : base(baseService)
         {
-            this.gardenRepository = new BaseRepository<Garden>();
-        }
-
-        public GardenController(IBaseRepository<Garden> repository)
-        {
-            this.gardenRepository = repository;
+            this._gardenService = gardenService;
         }
 
         // GET: Garden
         public ActionResult Index()
         {
-            var gardenViewModel = new GardenViewModel(gardenRepository.Get(includeProperties: "Beds"));
+            var gardenViewModel = new GardenViewModel(_gardenService.GetGardens(includeProperties: "Beds"));
 
             return View(gardenViewModel);
         }
@@ -50,7 +47,7 @@ namespace GardenManager.Web.Controllers
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
 
-            var gardenViewModel = new GardenViewModel(gardenRepository.Get(includeProperties: "Beds, Seasons, Harvests"));
+            var gardenViewModel = new GardenViewModel(_gardenService.GetGardens(includeProperties: "Beds, Seasons, Harvests"));
             gardenViewModel.Garden =  gardenViewModel.Gardens.FirstOrDefault(g => g.Id == id);
             if (gardenViewModel.Garden == null)
             {
@@ -63,10 +60,10 @@ namespace GardenManager.Web.Controllers
         // GET: Garden/Create
         public ActionResult Create()
         {
-            var viewModel = new GardenViewModel(gardenRepository.Get())
+            var viewModel = new GardenViewModel(_gardenService.GetGardens())
             {
                 Garden = new Garden(),
-                Zones = GetZones()
+                Zones = _gardenService.GetZones()
             };
             return PartialView("_CreateGardenPartial", viewModel);
         }
@@ -84,9 +81,12 @@ namespace GardenManager.Web.Controllers
             {
                 Garden garden = new Garden();
                 garden.Name = Model.Name;
-                garden.Zone = gardenRepository.Fetch<PlantHardinessZone>().Where(z => z.Id == viewModel.ZoneId).Single();
-                gardenRepository.Insert(garden);
-                gardenRepository.Save();
+                garden.Zone = _gardenService.GetZoneByID(viewModel.ZoneId);
+                _gardenService.AddGarden(garden);
+                // Need to explicitly call Save() since the newly created
+                // Garden.Id is needed for the Details call, and the auto-save
+                // does not happen until the Action is complete.
+                _gardenService.Save();
                 return new MvcHtmlString(Url.Action("Details", new { id = garden.Id }));
             }
 
@@ -101,17 +101,17 @@ namespace GardenManager.Web.Controllers
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
             
-            Garden garden = gardenRepository.GetByID(id);
+            Garden garden = _gardenService.GetGardenByID(id);
             if (garden == null)
             {
                 return HttpNotFound();
             }
 
-            var viewModel = new GardenViewModel(gardenRepository.Get())
+            var viewModel = new GardenViewModel(_gardenService.GetGardens())
             {
                 Garden = garden,
                 ZoneId = garden.Zone.Id,
-                Zones = GetZones()
+                Zones = _gardenService.GetZones()
             };
 
             return PartialView("_EditGardenPartial", viewModel);
@@ -127,9 +127,8 @@ namespace GardenManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 Garden garden = viewModel.Garden;
-                garden.ZoneId = gardenRepository.Fetch<PlantHardinessZone>().Where(z => z.Id == viewModel.ZoneId).Single().Id;
-                gardenRepository.Update(garden);
-                gardenRepository.Save();
+                garden.ZoneId = _gardenService.GetZoneByID(viewModel.ZoneId).Id;
+                _gardenService.UpdateGarden(garden);
 
                 return new MvcHtmlString(Url.Action("Details", new { id = viewModel.Garden.Id }));
 
@@ -144,7 +143,7 @@ namespace GardenManager.Web.Controllers
             {
                 return ThrowJsonError(new EntryNotFoundException(String.Format("Parameter 'id' cannot be null", id)));
             }
-            Garden garden = gardenRepository.GetByID(id);
+            Garden garden = _gardenService.GetGardenByID(id);
             if (garden == null)
             {
                 return HttpNotFound();
@@ -157,29 +156,9 @@ namespace GardenManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public IHtmlString DeleteConfirmed(int id)
         {
-            Garden garden = gardenRepository.GetByID(id);
-            gardenRepository.Delete(garden);
-            gardenRepository.Save();
+            Garden garden = _gardenService.GetGardenByID(id);
+            _gardenService.DeleteGarden(garden);
             return new MvcHtmlString(Url.Action("Index", "Home"));
-        }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        // Private methods
-
-        /// <summary>
-        /// Returns an IEnumerable List of Zones
-        /// </summary>
-        private IEnumerable<PlantHardinessZone> GetZones()
-        {
-            return gardenRepository.Get<PlantHardinessZone>();
         }
     }
 }

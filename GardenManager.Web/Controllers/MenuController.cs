@@ -8,6 +8,7 @@ using GardenManager.Web.ViewModels;
 using GardenManager.DAL.Interfaces;
 using GardenManager.Entities;
 using GardenManager.DAL.Repositories;
+using GardenManager.DAL.Services;
 
 namespace GardenManager.Web.Controllers
 {
@@ -16,16 +17,12 @@ namespace GardenManager.Web.Controllers
      */
     public class MenuController : BaseController
     {
-        private IBaseRepository<Garden> gardenRepository = null;
+        private IGardenService _gardenService;
 
-        public MenuController()
+        public MenuController(IGardenService gardenService,
+            IBaseService baseService) : base(baseService)
         {
-            this.gardenRepository = new BaseRepository<Garden>();
-        }
-
-        public MenuController(IBaseRepository<Garden> repository)
-        {
-            this.gardenRepository = repository;
+            this._gardenService = gardenService;
         }
 
         public ActionResult UpdateRootGardenMenu()
@@ -33,7 +30,7 @@ namespace GardenManager.Web.Controllers
             // Create the ViewModel for the menu
             //_NavigationViewModel viewModel = new _NavigationViewModel(db.Gardens.ToList());
 
-            return PartialView("~/Views/Garden/Partials/_IndexGardenPartial.cshtml", gardenRepository.Get());
+            return PartialView("~/Views/Garden/Partials/_IndexGardenPartial.cshtml", _gardenService.GetGardens());
         }
     }
 }
